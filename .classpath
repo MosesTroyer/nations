@@ -2,5 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="E:/Games/MCServer/Bukkit/target/bukkit-1.8-R0.1-SNAPSHOT.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="https://hub.spigotmc.org/javadocs/bukkit/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="E:/Games/MCServer/craftbukkit-1.8.jar"/>
+	<classpathentry kind="lib" path="E:/Games/MCServer/SQLibrary-7.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
