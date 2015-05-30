@@ -1,3 +1,24 @@
 name: Nations
 main: io.github.mosestroyer.nations.Nations
 version: 0.1
+
+commands:
+    createPedestal:
+        description: Creates a pedestal for a designated nation
+
+permissions:
+    nations.*:
+        description: Access to all nations commands
+        children:
+            nations.monarch: true
+            nations.citizen: true
+            nations.commonder: true
+    nations.monarch:
+        description: The abilities for the rulers of a nation
+        default: false
+    nations.citizen:
+        description: The abilities for the citizens of a nation
+        default: false
+    nations.commoner:
+        description: The abilities for a nation-less commoner
+        default: true
