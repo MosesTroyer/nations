@@ -12,10 +12,19 @@ import io.github.mosestroyer.nations.spells.Spellbook;
 
 public class ArrowStorm extends Spellbook{
 	
-	String description = "A powerful spell that launches arrows at a target";
+	String description = "Unleashes a storm of arrows upon your foes!";
 	String msgText = "Stormed the arrows!";
 	int tier = 1;
+	
+	public ArrowStorm(){
+		super.setDescription(description);
+		super.setMsg(msgText);
+		super.setTier(tier);
+	}
+	
 
+
+	@Override
 	public void doSpell(Player p, Nations n, int s){
 		n.getLogger().info(msgText);
 		p.sendMessage(msgText);

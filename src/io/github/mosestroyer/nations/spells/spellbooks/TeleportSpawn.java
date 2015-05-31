@@ -15,7 +15,14 @@ public class TeleportSpawn extends Spellbook{
 	String description = "A simple teleportation tome to get you home!";
 	String msgText = "Teleported to spawn!";
 	int tier = 1;
+	
+	public TeleportSpawn(){
+		super.setDescription(description);
+		super.setMsg(msgText);
+		super.setTier(tier);
+	}
 
+	@Override
 	public void doSpell(Player p, Nations n){
 		n.getLogger().info(msgText);
 		p.sendMessage(msgText);
