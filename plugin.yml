@@ -7,6 +7,12 @@ commands:
         description: Creates a board to display nations and other information
     createPedestal:
         description: Creates a pedestal for a designated nation
+    createNation:
+        description: Allows an admin to setup a new nation
+    showNations:
+        description: Shows the list of all created nations
+    removeNation:
+        description: Removes a nation from the nationlist
     growcrops:
         description: Grow the wheat around you
     digtunnel:
@@ -28,9 +34,13 @@ permissions:
     nations.*:
         description: Access to all nations commands
         children:
+            nations.admin: true
             nations.monarch: true
             nations.citizen: true
             nations.commonder: true
+    nations.admin:
+        description: The abilities for the server admins
+        default: false
     nations.monarch:
         description: The abilities for the rulers of a nation
         default: false

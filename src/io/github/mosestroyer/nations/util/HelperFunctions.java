@@ -1,6 +1,7 @@
 package io.github.mosestroyer.nations.util;
 
 import io.github.mosestroyer.nations.Nations;
+import io.github.mosestroyer.nations.util.DatabaseConnection;
 
 import java.security.InvalidParameterException;
 
@@ -46,5 +47,13 @@ public class HelperFunctions {
 			
 		return true;
 	} //end commandCheck
+
+	//Sends a commandSender a message, depending on if they are the server console or a player
+	public static void sendSenderMessage(Nations nations, CommandSender sender, String message){
+		if(sender instanceof Player)
+			sender.sendMessage(message);
+		else
+			nations.getLogger().info(message);	
+	} //end sendSenderMessage
 	
 } //end HelperFunctions class

@@ -17,16 +17,14 @@ public class Nations extends JavaPlugin {
 			
 			CommandRegistration.registerCommands(this);
 			
-			DatabaseConnection db = new DatabaseConnection();
-			Connection c = (Connection) db.getConnection();
-			SetupDAO dao = new SetupDAO();
-			dao.checkForTables(c);
-			db.closeConnection(c);
+			Connection c = DatabaseConnection.getConnection();
+			SetupDAO.checkForTables(c);
+			DatabaseConnection.closeConnection(c);
 		
 			getLogger().info("Nations successfully enabled!");
 		} catch (Exception e) {
 			getLogger().info("Nations failed to start!");
-			getLogger().info(e.getMessage());
+			getLogger().info((e.getStackTrace())[0].toString());
 		}
 		
 	} //end onEnable
