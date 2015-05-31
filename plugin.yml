@@ -3,11 +3,28 @@ main: io.github.mosestroyer.nations.Nations
 version: 0.1
 
 commands:
-   growcrops:
-      description: Grow the wheat around you
-      
-   digtunnel:
-      description: Digs a tunnel in front of you
-      
-   heal:
-      description: Heals your Player
+    createPedestal:
+        description: Creates a pedestal for a designated nation
+    growcrops:
+        description: Grow the wheat around you
+    digtunnel:
+        description: Digs a tunnel in front of you
+    heal:
+         description: Heals your Player
+         
+permissions:
+    nations.*:
+        description: Access to all nations commands
+        children:
+            nations.monarch: true
+            nations.citizen: true
+            nations.commonder: true
+    nations.monarch:
+        description: The abilities for the rulers of a nation
+        default: false
+    nations.citizen:
+        description: The abilities for the citizens of a nation
+        default: false
+    nations.commoner:
+        description: The abilities for a nation-less commoner
+        default: true

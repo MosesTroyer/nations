@@ -8,6 +8,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import io.github.mosestroyer.nations.util.CommandRegistration;
+import io.github.mosestroyer.nations.util.DatabaseConnection;
+
 public class Nations extends JavaPlugin {
 	
 	@Override
@@ -25,14 +28,35 @@ public class Nations extends JavaPlugin {
 	
 	public void onEnable(){
 		
-		getLogger().info("Nations successfully enabled!");
+		try {
+			
+			CommandRegistration.registerCommands(this);
+			
+			DatabaseConnection db = new DatabaseConnection();
+			Connection c = db.getConnection();
+			db.checkForTables(c);
+			db.closeConnection(c);
+		
+			getLogger().info("Nations successfully enabled!");
+		} catch (Exception e) {
+			getLogger().info("Nations failed to start!");
+			getLogger().info(e.getMessage());
+		}
 		
 	} //end onEnable
 	
 	public void onDisable(){
 		
-		getLogger().info("Nations successfully disabled!");
-		
+		try {
+			
+			getLogger().info("Nations successfully disabled!");
+			
+		} catch (Exception e) {
+			
+			getLogger().info("Nations failed to disable successfully!");
+			
+		}	
+
 	} //end onDisable
 
 } //end Nations class
