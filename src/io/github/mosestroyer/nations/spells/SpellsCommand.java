@@ -1,6 +1,7 @@
 package io.github.mosestroyer.nations.spells;
 
 import io.github.mosestroyer.nations.Nations;
+import io.github.mosestroyer.nations.spells.spellbooks.ArrowStorm;
 import io.github.mosestroyer.nations.spells.spellbooks.FireBall;
 import io.github.mosestroyer.nations.spells.spellbooks.GrowCrops;
 import io.github.mosestroyer.nations.spells.spellbooks.Heal;
@@ -37,6 +38,10 @@ public class SpellsCommand implements CommandExecutor {
 			if(command.getName().equalsIgnoreCase("fireball")){
 				FireBall gw = new FireBall();
 				gw.doSpell(((Player) sender), this.nations);
+			}
+			if(command.getName().equalsIgnoreCase("arrowstorm")){
+				ArrowStorm as = new ArrowStorm();
+				as.doSpell(((Player) sender), this.nations, 10);
 			}
 			
 			

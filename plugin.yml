@@ -13,6 +13,8 @@ commands:
          description: Heals your Player
     fireball:
          description: Shoots a fireball!
+    arrowstorm:
+         description: shoots a stream of arrows
          
 permissions:
     nations.*:
