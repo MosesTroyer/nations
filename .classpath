@@ -1,15 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/David/Desktop/MCServer/craftbukkit-1.8.jar"/>
-	<classpathentry kind="lib" path="C:/Users/David/Desktop/MCServer/Bukkit/target/bukkit-1.8-R0.1-SNAPSHOT.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="E:/Games/MCServer/Bukkit/target/bukkit-1.8-R0.1-SNAPSHOT.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="https://hub.spigotmc.org/javadocs/bukkit/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="E:/Games/MCServer/craftbukkit-1.8.jar"/>
-	<classpathentry kind="output" path="bin"/>
-</classpath>
+

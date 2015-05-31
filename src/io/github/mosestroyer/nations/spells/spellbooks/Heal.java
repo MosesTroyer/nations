@@ -9,10 +9,10 @@ import io.github.mosestroyer.nations.spells.Spellbook;
 
 public class Heal extends Spellbook{
 
-	public void doSpell(Player p, Nations n){
+	public void doSpell(Player p, Nations nations){
 		if(p.getHealth() < p.getMaxHealth()){
 			p.setHealth(p.getMaxHealth());
-			n.getLogger().info("Healed the body!");
+			nations.getLogger().info("Healed the body!");
 		}
 	}
 }
