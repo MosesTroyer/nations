@@ -12,11 +12,15 @@ import io.github.mosestroyer.nations.spells.Spellbook;
 
 public class TeleportSpawn extends Spellbook{
 	
+	String name = "Teleport Spawn";
+	String id = "teleportspawn-nationsplugin-56732437654";
 	String description = "A simple teleportation tome to get you home!";
 	String msgText = "Teleported to spawn!";
 	int tier = 1;
 	
 	public TeleportSpawn(){
+		super.setName(name);
+		super.setId(id);
 		super.setDescription(description);
 		super.setMsg(msgText);
 		super.setTier(tier);

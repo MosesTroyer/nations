@@ -9,11 +9,15 @@ import io.github.mosestroyer.nations.spells.Spellbook;
 
 public class Suicide extends Spellbook{
 	
+	String name = "Suicide";
+	String id = "suicide-nationsplugin-56732437654";
 	String description = "A spell that kills you!";
 	String msgText = "Took the life!";
 	int tier = 1;
 	
 	public Suicide(){
+		super.setName(name);
+		super.setId(id);
 		super.setDescription(description);
 		super.setMsg(msgText);
 		super.setTier(tier);

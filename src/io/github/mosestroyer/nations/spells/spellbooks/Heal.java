@@ -9,11 +9,15 @@ import io.github.mosestroyer.nations.spells.Spellbook;
 
 public class Heal extends Spellbook{
 	
+	String name = "Heal";
+	String id = "heal-nationsplugin-56732437654";
 	String description = "A spell that will leave you feeling ";
 	String msgText = "Healed the body!";
 	int tier = 1;
 
 	public Heal(){
+		super.setName(name);
+		super.setId(id);
 		super.setDescription(description);
 		super.setMsg(msgText);
 		super.setTier(tier);

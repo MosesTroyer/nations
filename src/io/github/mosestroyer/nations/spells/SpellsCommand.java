@@ -36,7 +36,7 @@ public class SpellsCommand implements CommandExecutor {
 			}
 			if(command.getName().equalsIgnoreCase("growcrops")){
 				GrowCrops gw = new GrowCrops();
-				gw.doSpell((Player)sender, this.nations, 20);
+				gw.doSpell((Player)sender, this.nations);
 			}
 			if(command.getName().equalsIgnoreCase("fireball")){
 				FireBall gw = new FireBall();
@@ -44,7 +44,7 @@ public class SpellsCommand implements CommandExecutor {
 			}
 			if(command.getName().equalsIgnoreCase("arrowstorm")){
 				ArrowStorm as = new ArrowStorm();
-				as.doSpell(((Player) sender), this.nations, 10);
+				as.doSpell(((Player) sender), this.nations);
 			}
 			if(command.getName().equalsIgnoreCase("teleportspawn")){
 				TeleportSpawn as = new TeleportSpawn();

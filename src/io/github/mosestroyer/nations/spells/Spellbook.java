@@ -6,6 +6,8 @@ import org.bukkit.entity.Player;
 
 public class Spellbook {
 
+	String name;
+	String id;
 	private String description;
 	private String msgText;
 	private int tier;
@@ -26,6 +28,12 @@ public class Spellbook {
 	}
 	
 	
+	public String getName(){
+		return name;
+	}
+	public String getId(){
+		return id;
+	}
 	public String getDescription(){
 		return description;
 	}
@@ -36,7 +44,12 @@ public class Spellbook {
 	public int getTier(){
 		return tier;
 	}
-	
+	public void setName(String n){
+		name = n;
+	}
+	public void setId(String i){
+		id = i;
+	}
 	public void setDescription(String s1){
 		description = s1;
 	}

@@ -12,11 +12,15 @@ import io.github.mosestroyer.nations.spells.Spellbook;
 
 public class DigTunnel extends Spellbook{
 
+	String name = "Dig Tunnel";
+	String id = "digtunnel-nationsplugin-56732437654";
 	String description = "A spell that will dig a hole right to the other side of minecraft!";
 	String msgText = "Dug the hole!";
 	int tier = 1;
 	
 	public DigTunnel(){
+		super.setName(name);
+		super.setId(id);
 		super.setDescription(description);
 		super.setMsg(msgText);
 		super.setTier(tier);
