@@ -24,18 +24,9 @@ public class DatabaseConnection {
 	
 	public void closeConnection(Connection c) throws SQLException {
 		
+		c.close();
+		
 	} //end closeConnection
 	
-	public void checkForTables(Connection c) throws SQLException{
-		
-		Statement stmt = c.createStatement();
-		
-		String sql = "CREATE TABLE IF NOT EXISTS test (ID INT PRIMARY KEY NOT NULL)";
-		
-		stmt.executeUpdate(sql);
-		
-		stmt.close();
-		
-	} //end checkForTables
 	
 } //end DatabaseConnection class
