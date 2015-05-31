@@ -5,6 +5,7 @@ import io.github.mosestroyer.nations.spells.spellbooks.ArrowStorm;
 import io.github.mosestroyer.nations.spells.spellbooks.FireBall;
 import io.github.mosestroyer.nations.spells.spellbooks.GrowCrops;
 import io.github.mosestroyer.nations.spells.spellbooks.Heal;
+import io.github.mosestroyer.nations.spells.spellbooks.TeleportSpawn;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -42,6 +43,10 @@ public class SpellsCommand implements CommandExecutor {
 			if(command.getName().equalsIgnoreCase("arrowstorm")){
 				ArrowStorm as = new ArrowStorm();
 				as.doSpell(((Player) sender), this.nations, 10);
+			}
+			if(command.getName().equalsIgnoreCase("teleportspawn")){
+				TeleportSpawn as = new TeleportSpawn();
+				as.doSpell(((Player) sender), this.nations);
 			}
 			
 			

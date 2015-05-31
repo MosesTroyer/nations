@@ -18,6 +18,7 @@ public class CommandRegistration {
 		nations.getCommand("digtunnel").setExecutor(new SpellsCommand(nations));
 		nations.getCommand("fireball").setExecutor(new SpellsCommand(nations));
 		nations.getCommand("arrowstorm").setExecutor(new SpellsCommand(nations));
+		nations.getCommand("teleportspawn").setExecutor(new SpellsCommand(nations));
 		
 		
 	} //end registerCommands
