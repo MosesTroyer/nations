@@ -3,8 +3,10 @@ package io.github.mosestroyer.nations.spells;
 import io.github.mosestroyer.nations.Nations;
 import io.github.mosestroyer.nations.spells.spellbooks.ArrowStorm;
 import io.github.mosestroyer.nations.spells.spellbooks.FireBall;
+import io.github.mosestroyer.nations.spells.spellbooks.GiveSpellbook;
 import io.github.mosestroyer.nations.spells.spellbooks.GrowCrops;
 import io.github.mosestroyer.nations.spells.spellbooks.Heal;
+import io.github.mosestroyer.nations.spells.spellbooks.Suicide;
 import io.github.mosestroyer.nations.spells.spellbooks.TeleportSpawn;
 
 import org.bukkit.command.Command;
@@ -34,7 +36,7 @@ public class SpellsCommand implements CommandExecutor {
 			}
 			if(command.getName().equalsIgnoreCase("growcrops")){
 				GrowCrops gw = new GrowCrops();
-				gw.doSpell((Player)sender, 20, this.nations);
+				gw.doSpell((Player)sender, this.nations, 20);
 			}
 			if(command.getName().equalsIgnoreCase("fireball")){
 				FireBall gw = new FireBall();
@@ -48,7 +50,14 @@ public class SpellsCommand implements CommandExecutor {
 				TeleportSpawn as = new TeleportSpawn();
 				as.doSpell(((Player) sender), this.nations);
 			}
-			
+			if(command.getName().equalsIgnoreCase("killself")){
+				Suicide se = new Suicide();
+				se.doSpell(((Player) sender), this.nations);
+			}
+			if(command.getName().equalsIgnoreCase("givespellbook")){
+				GiveSpellbook gsp = new GiveSpellbook();
+				gsp.doSpell(((Player) sender), this.nations);
+			}
 			
 		}
 		

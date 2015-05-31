@@ -18,7 +18,14 @@ public class GrowCrops extends Spellbook {
 	String msgText = "Grew the crops!";
 	int tier = 1;
 	
-	public void doSpell(Player p, int r, Nations n){
+	public GrowCrops(){
+		super.setDescription(description);
+		super.setMsg(msgText);
+		super.setTier(tier);
+	}
+	
+	@Override
+	public void doSpell(Player p, Nations n, int r){
 		Location loc = p.getLocation();
 		p.sendMessage(msgText);
 		n.getLogger().info(p.getDisplayName()+msgText);

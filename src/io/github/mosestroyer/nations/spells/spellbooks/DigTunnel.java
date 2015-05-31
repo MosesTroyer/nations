@@ -16,7 +16,14 @@ public class DigTunnel extends Spellbook{
 	String msgText = "Dug the hole!";
 	int tier = 1;
 	
-	public void doSpell(Player p, int s, Nations n){
+	public DigTunnel(){
+		super.setDescription(description);
+		super.setMsg(msgText);
+		super.setTier(tier);
+	}
+	
+	@Override
+	public void doSpell(Player p, Nations n, int s){
 		Location loc = p.getLocation();
 		
 		n.getLogger().info(p.getDisplayName() + msgText);

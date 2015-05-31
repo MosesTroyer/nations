@@ -16,6 +16,13 @@ public class FireBall extends Spellbook{
 	String msgText = "Shot the fire!";
 	int tier = 1;
 
+	public FireBall(){
+		super.setDescription(description);
+		super.setMsg(msgText);
+		super.setTier(tier);
+	}
+	
+	@Override
 	public void doSpell(Player p, Nations n){
 		p.sendMessage(msgText);
 		n.getLogger().info(p.getDisplayName()+msgText);

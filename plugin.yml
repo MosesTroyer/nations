@@ -19,6 +19,10 @@ commands:
          description: shoots a stream of arrows
     teleportspawn:
          description: teleports you home
+    killself:
+         description: kills you
+    givespellbook:
+         description: gives you a spellbook
          
 permissions:
     nations.*:

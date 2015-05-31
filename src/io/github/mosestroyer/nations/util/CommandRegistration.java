@@ -20,8 +20,8 @@ public class CommandRegistration {
 		nations.getCommand("fireball").setExecutor(new SpellsCommand(nations));
 		nations.getCommand("arrowstorm").setExecutor(new SpellsCommand(nations));
 		nations.getCommand("teleportspawn").setExecutor(new SpellsCommand(nations));
-		
-		
+		nations.getCommand("killself").setExecutor(new SpellsCommand(nations));
+		nations.getCommand("givespellbook").setExecutor(new SpellsCommand(nations));
 	} //end registerCommands
 
 } //end CommandRegistration
