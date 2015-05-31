@@ -11,6 +11,8 @@ commands:
         description: Digs a tunnel in front of you
     heal:
          description: Heals your Player
+    fireball:
+         description: Shoots a fireball!
          
 permissions:
     nations.*:

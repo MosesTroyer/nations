@@ -8,11 +8,16 @@ import io.github.mosestroyer.nations.spells.Spellbook;
 
 
 public class Heal extends Spellbook{
+	
+	String description = "A spell that will leave you feeling ";
+	String msgText = "Healed the body!";
+	int tier = 1;
 
-	public void doSpell(Player p, Nations nations){
+	public void doSpell(Player p, Nations n){
 		if(p.getHealth() < p.getMaxHealth()){
 			p.setHealth(p.getMaxHealth());
-			nations.getLogger().info("Healed the body!");
+			n.getLogger().info(p.getDisplayName() + msgText);
+			p.sendMessage(msgText);
 		}
 	}
 }

@@ -2,6 +2,7 @@ package io.github.mosestroyer.nations.util;
 
 import io.github.mosestroyer.nations.Nations;
 import io.github.mosestroyer.nations.setup.SetupCommand;
+import io.github.mosestroyer.nations.spells.SpellsCommand;
 
 public class CommandRegistration {
 	
@@ -11,6 +12,11 @@ public class CommandRegistration {
 		nations.getCommand("createPedestal").setExecutor(new SetupCommand(nations));
 		
 		
+		//Spells Commands
+		nations.getCommand("heal").setExecutor(new SpellsCommand(nations));
+		nations.getCommand("growcrops").setExecutor(new SpellsCommand(nations));
+		nations.getCommand("digtunnel").setExecutor(new SpellsCommand(nations));
+		nations.getCommand("fireball").setExecutor(new SpellsCommand(nations));
 		
 		
 	} //end registerCommands
