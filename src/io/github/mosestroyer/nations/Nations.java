@@ -3,14 +3,7 @@ package io.github.mosestroyer.nations;
 
 import java.sql.Connection;
 
-import io.github.mosestroyer.nations.spells.spellbooks.Heal;
-
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import com.mysql.jdbc.Connection;
 
 import io.github.mosestroyer.nations.setup.SetupDAO;
 import io.github.mosestroyer.nations.util.CommandRegistration;
