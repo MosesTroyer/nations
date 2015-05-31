@@ -1,0 +1,27 @@
+package io.github.mosestroyer.nations.playerActions;
+
+import io.github.mosestroyer.nations.Nations;
+import io.github.mosestroyer.nations.util.HelperFunctions;
+
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+
+public class PlayerCommand  implements CommandExecutor {
+	
+	private final Nations nations;
+	
+	public PlayerCommand(Nations nations){
+		this.nations = nations;
+	} //end constructor
+
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		
+		
+		
+		return false;
+	} //end onCommand
+
+} //end PlayerCommand class
+
+
