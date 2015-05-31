@@ -10,25 +10,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.mysql.jdbc.Connection;
+
 import io.github.mosestroyer.nations.setup.SetupDAO;
 import io.github.mosestroyer.nations.util.CommandRegistration;
 import io.github.mosestroyer.nations.util.DatabaseConnection;
 
 public class Nations extends JavaPlugin {
-	
-	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (cmd.getName().equalsIgnoreCase("heal")) { 
-			if(sender instanceof Player){
-				Heal hl = new Heal();
-				hl.doSpell((Player)sender, this);
-			}
-			return true;
-		}
-		return false; 
-	}
 
-	
 	public void onEnable(){
 		
 		try {
@@ -36,7 +25,7 @@ public class Nations extends JavaPlugin {
 			CommandRegistration.registerCommands(this);
 			
 			DatabaseConnection db = new DatabaseConnection();
-			Connection c = db.getConnection();
+			Connection c = (Connection) db.getConnection();
 			SetupDAO dao = new SetupDAO();
 			dao.checkForTables(c);
 			db.closeConnection(c);

@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.entity.Player;
 import org.bukkit.material.Crops;
 
 import io.github.mosestroyer.nations.Nations;
@@ -13,8 +14,14 @@ import io.github.mosestroyer.nations.spells.Spellbook;
 
 public class GrowCrops extends Spellbook {
 
-	public void doSpell(Location loc, int r, Nations n){
-		n.getLogger().info("Grew the crops!");
+	String description = "A spell that crows all crops within an area!";
+	String msgText = "Grew the crops!";
+	int tier = 1;
+	
+	public void doSpell(Player p, int r, Nations n){
+		Location loc = p.getLocation();
+		p.sendMessage(msgText);
+		n.getLogger().info(p.getDisplayName()+msgText);
 		World world = loc.getWorld();
 		
 		int x1 = loc.getBlockX() - r/2;

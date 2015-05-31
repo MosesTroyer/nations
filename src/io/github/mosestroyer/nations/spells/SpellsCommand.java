@@ -1,6 +1,11 @@
 package io.github.mosestroyer.nations.spells;
 
 import io.github.mosestroyer.nations.Nations;
+import io.github.mosestroyer.nations.spells.spellbooks.ArrowStorm;
+import io.github.mosestroyer.nations.spells.spellbooks.FireBall;
+import io.github.mosestroyer.nations.spells.spellbooks.GrowCrops;
+import io.github.mosestroyer.nations.spells.spellbooks.Heal;
+import io.github.mosestroyer.nations.spells.spellbooks.TeleportSpawn;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -18,8 +23,33 @@ public class SpellsCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
 		if(sender instanceof Player){
+			if (command.getName().equalsIgnoreCase("heal")) { 
+				Heal hl = new Heal();
+				hl.doSpell((Player)sender, this.nations);
+				return true;
+			}
+			if(command.getName().equalsIgnoreCase("digtunnel")){
+				//TODO
+				//Fix the fuck out of /digtunnel before implementation
+			}
+			if(command.getName().equalsIgnoreCase("growcrops")){
+				GrowCrops gw = new GrowCrops();
+				gw.doSpell((Player)sender, 20, this.nations);
+			}
+			if(command.getName().equalsIgnoreCase("fireball")){
+				FireBall gw = new FireBall();
+				gw.doSpell(((Player) sender), this.nations);
+			}
+			if(command.getName().equalsIgnoreCase("arrowstorm")){
+				ArrowStorm as = new ArrowStorm();
+				as.doSpell(((Player) sender), this.nations, 10);
+			}
+			if(command.getName().equalsIgnoreCase("teleportspawn")){
+				TeleportSpawn as = new TeleportSpawn();
+				as.doSpell(((Player) sender), this.nations);
+			}
 			
-			return true;
+			
 		}
 		
 		return false;
