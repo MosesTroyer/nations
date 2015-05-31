@@ -20,8 +20,6 @@ public class SpellsCommand implements CommandExecutor {
 		
 		if(sender instanceof Player){
 			
-			
-			
 			return true;
 		}
 		
