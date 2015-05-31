@@ -5,7 +5,13 @@ version: 0.1
 commands:
     createPedestal:
         description: Creates a pedestal for a designated nation
-
+    growcrops:
+        description: Grow the wheat around you
+    digtunnel:
+        description: Digs a tunnel in front of you
+    heal:
+         description: Heals your Player
+         
 permissions:
     nations.*:
         description: Access to all nations commands
