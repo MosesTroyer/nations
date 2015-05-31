@@ -17,7 +17,8 @@ public class CommandRegistration {
 		nations.getCommand("removeNation").setExecutor(new SetupCommand(nations));
 		
 		//playerActions commands
-		//nations.getCommand("joinNation").setExecutor(new PlayerCommand(nations));
+		nations.getCommand("joinNation").setExecutor(new PlayerCommand(nations));
+		nations.getCommand("leaveNation").setExecutor(new PlayerCommand(nations));
 		
 		//Spells Commands
 		nations.getCommand("heal").setExecutor(new SpellsCommand(nations));
