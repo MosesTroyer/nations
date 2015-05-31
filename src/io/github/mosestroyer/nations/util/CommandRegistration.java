@@ -8,6 +8,7 @@ public class CommandRegistration {
 	public static void registerCommands(Nations nations){
 		
 		//setup commands
+		nations.getCommand("createNationsBoard").setExecutor(new SetupCommand(nations));
 		nations.getCommand("createPedestal").setExecutor(new SetupCommand(nations));
 		
 		

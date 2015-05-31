@@ -1,6 +1,8 @@
 package io.github.mosestroyer.nations;
 
 
+import java.sql.Connection;
+
 import io.github.mosestroyer.nations.spells.spellbooks.Heal;
 
 import org.bukkit.command.Command;

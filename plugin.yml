@@ -3,6 +3,8 @@ main: io.github.mosestroyer.nations.Nations
 version: 0.1
 
 commands:
+    createNationsBoard:
+        description: Creates a board to display nations and other information
     createPedestal:
         description: Creates a pedestal for a designated nation
     growcrops:
