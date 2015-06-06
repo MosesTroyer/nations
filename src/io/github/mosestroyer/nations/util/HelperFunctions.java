@@ -5,6 +5,8 @@ import io.github.mosestroyer.nations.util.DatabaseConnection;
 
 import java.security.InvalidParameterException;
 
+import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -55,5 +57,43 @@ public class HelperFunctions {
 		else
 			nations.getLogger().info(message);	
 	} //end sendSenderMessage
+	
+	//Dye Color to Chat color converter. Converts to best match if it doesn't exist. Special snowflakey!
+	public static ChatColor dyeColorToChatColor(DyeColor dyeColor){
+		
+		try {
+			switch(dyeColor){
+		
+				case BROWN:
+					return ChatColor.DARK_GRAY;
+				case CYAN:
+					return ChatColor.DARK_AQUA;
+				case GREEN:
+					return ChatColor.DARK_GREEN;
+				case LIGHT_BLUE:
+					return ChatColor.AQUA;
+				case LIME:
+					return ChatColor.GREEN;
+				case MAGENTA:
+					return ChatColor.RED;
+				case ORANGE:
+					return ChatColor.GOLD;
+				case PINK:
+					return ChatColor.LIGHT_PURPLE;
+				case PURPLE:
+					return ChatColor.DARK_PURPLE;
+				case RED:
+					return ChatColor.DARK_RED;
+				case SILVER:
+					return ChatColor.WHITE;
+
+				default:
+					return ChatColor.valueOf(dyeColor.toString());
+		
+			}
+		} catch (Exception e) {}
+			
+		return ChatColor.WHITE;
+	} //end dyeColorToChatColor
 	
 } //end HelperFunctions class

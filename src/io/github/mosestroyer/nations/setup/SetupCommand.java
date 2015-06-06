@@ -9,11 +9,13 @@ import io.github.mosestroyer.nations.nation.NationDAO;
 import io.github.mosestroyer.nations.util.DatabaseConnection;
 import io.github.mosestroyer.nations.util.HelperFunctions;
 
+import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Horse.Color;
 
 public class SetupCommand implements CommandExecutor {
 	
@@ -100,6 +102,8 @@ public class SetupCommand implements CommandExecutor {
 		SetupDAO.createNation(c, name, color);
 
 		DatabaseConnection.closeConnection(c);
+		
+		HelperFunctions.sendSenderMessage(nations, sender, "Nation created!");
 		return true;
 	} //end createNation
 	
@@ -108,8 +112,10 @@ public class SetupCommand implements CommandExecutor {
 		
 		Nation[] nationList = NationDAO.getNations(c);
 		
-		for(Nation n : nationList)
-			HelperFunctions.sendSenderMessage(nations, sender, n.getName() + ", " + n.getColor());
+		for(Nation n : nationList){
+			String color = n.getColor();
+			HelperFunctions.sendSenderMessage(nations, sender, n.getName() + ", " + HelperFunctions.dyeColorToChatColor(DyeColor.valueOf(color)) + color);
+		}
 		
 		return true;
 	} //end showNations
@@ -119,6 +125,7 @@ public class SetupCommand implements CommandExecutor {
 		
 		SetupDAO.removeNation(c, args[0]);
 		
+		HelperFunctions.sendSenderMessage(nations, sender, "Nation removed!");
 		return true;
 	} //end removeNation
 

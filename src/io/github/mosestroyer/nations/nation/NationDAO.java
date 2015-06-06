@@ -32,7 +32,7 @@ public class NationDAO {
 	
 	public static Nation getNationByName(Connection c, String name) throws SQLException {
 		Statement stmt = c.createStatement();
-		ResultSet rs = stmt.executeQuery(SELECT_NATION + WHERE_NAME + name);
+		ResultSet rs = stmt.executeQuery(SELECT_NATION + WHERE_NAME + "'" + name + "'");
 		
 		if(rs.next()){
 			Nation ret = new Nation(rs.getString("name"), rs.getString("color"));

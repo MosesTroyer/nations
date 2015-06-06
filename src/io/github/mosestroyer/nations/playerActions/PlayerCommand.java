@@ -2,14 +2,15 @@ package io.github.mosestroyer.nations.playerActions;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.UUID;
 
 import io.github.mosestroyer.nations.Nations;
 import io.github.mosestroyer.nations.nation.Nation;
 import io.github.mosestroyer.nations.nation.NationDAO;
-import io.github.mosestroyer.nations.setup.SetupDAO;
 import io.github.mosestroyer.nations.util.DatabaseConnection;
 import io.github.mosestroyer.nations.util.HelperFunctions;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -57,15 +58,16 @@ public class PlayerCommand  implements CommandExecutor {
 		for(Nation n : nationList){
 			if(n.getName().equals(args[0])){
 				PlayerDAO.setPlayerNation(c, ((Player) sender).getUniqueId(), args[0]);
-				sender.sendMessage("Nation Joined!");
+				setPlayerColor((Player) sender);
 				c.close();
+				sender.sendMessage(HelperFunctions.dyeColorToChatColor(n.getDyeColor()) + "Nation Joined!");
 				return true;
 			}
 		}
 		
 		sender.sendMessage("Nation does not exist!");
 		c.close();
-		return false;
+		return true;
 	} //end joinNation
 
 	private boolean leaveNation(CommandSender sender, Command command, String label, String[] args) throws SQLException {
@@ -78,11 +80,37 @@ public class PlayerCommand  implements CommandExecutor {
 		}
 		
 		PlayerDAO.leaveNation(c, ((Player) sender).getUniqueId());
-		sender.sendMessage("You left your nation!");
+		setPlayerColor((Player) sender);
 		
 		c.close();
-		return false;
+		sender.sendMessage("You left your nation!");
+		return true;
 	} //end leaveNation
+	
+	public static void setPlayerColor(Player player){
+
+		String name = ChatColor.stripColor(player.getDisplayName());
+		UUID id = player.getUniqueId();
+		
+		try{
+			Connection c = DatabaseConnection.getConnection();
+			
+			String nationName = PlayerDAO.getPlayerNation(c, id);
+						
+			if(!nationName.equals("")){
+
+				Nation n = NationDAO.getNationByName(c, nationName);
+				
+				player.setDisplayName(HelperFunctions.dyeColorToChatColor(n.getDyeColor()) + name + ChatColor.WHITE);
+				
+			} else {
+				player.setDisplayName(ChatColor.WHITE + name);
+			}
+			
+			DatabaseConnection.closeConnection(c);
+		} catch (Exception e) {}
+		
+	} //end setPlayerColor
 	
 } //end PlayerCommand class
 
