@@ -22,6 +22,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import io.github.mosestroyer.nations.Nations;
+import io.github.mosestroyer.nations.spells.AvailableSpells;
 import io.github.mosestroyer.nations.spells.Spellbook;
 
 
@@ -46,15 +47,7 @@ public class GiveSpellbook extends Spellbook{
 
 	@Override
 	public void doSpell(Player p, Nations n){
-		Spellbook sb[] = new Spellbook[8]; //Change depending on # of spells
-		sb[0] = new ArrowStorm();
-		sb[1] = new DigTunnel();
-		sb[2] = new FireBall();
-		sb[3] = new GiveSpellbook();
-		sb[4] = new GrowCrops();
-		sb[5] = new Heal();
-		sb[6] = new Suicide();
-		sb[7] = new TeleportSpawn();
+		Spellbook sb[] = AvailableSpells.getSpells();
 		
 		n.getLogger().info(msgText);
 		p.sendMessage(msgText);
@@ -65,7 +58,7 @@ public class GiveSpellbook extends Spellbook{
 		BookMeta bd = (BookMeta) book.getItemMeta();
 		
 		Random rand = new Random();
-		int ranNum = rand.nextInt(8);
+		int ranNum = rand.nextInt(10);
 		
 		bd.addPage(sb[ranNum].getId());
 		bd.setAuthor("The Wizard");

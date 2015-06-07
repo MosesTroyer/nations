@@ -14,15 +14,8 @@ import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.mosestroyer.nations.setup.SetupDAO;
+import io.github.mosestroyer.nations.spells.AvailableSpells;
 import io.github.mosestroyer.nations.spells.Spellbook;
-import io.github.mosestroyer.nations.spells.spellbooks.ArrowStorm;
-import io.github.mosestroyer.nations.spells.spellbooks.DigTunnel;
-import io.github.mosestroyer.nations.spells.spellbooks.FireBall;
-import io.github.mosestroyer.nations.spells.spellbooks.GiveSpellbook;
-import io.github.mosestroyer.nations.spells.spellbooks.GrowCrops;
-import io.github.mosestroyer.nations.spells.spellbooks.Heal;
-import io.github.mosestroyer.nations.spells.spellbooks.Suicide;
-import io.github.mosestroyer.nations.spells.spellbooks.TeleportSpawn;
 import io.github.mosestroyer.nations.util.CommandRegistration;
 import io.github.mosestroyer.nations.util.DatabaseConnection;
 
@@ -67,15 +60,7 @@ public class Nations extends JavaPlugin implements Listener{
 	public void RCListener(PlayerInteractEvent event){
 		Action la = event.getAction();
 		Player p = event.getPlayer();
-		Spellbook sb[] = new Spellbook[8]; //Change depending on # of spells
-		sb[0] = new ArrowStorm();
-		sb[1] = new DigTunnel();
-		sb[2] = new FireBall();
-		sb[3] = new GiveSpellbook();
-		sb[4] = new GrowCrops();
-		sb[5] = new Heal();
-		sb[6] = new Suicide();
-		sb[7] = new TeleportSpawn();
+		Spellbook sb[] = AvailableSpells.getSpells();
 		
 		
 		if(la == Action.RIGHT_CLICK_AIR || la == Action.RIGHT_CLICK_BLOCK){

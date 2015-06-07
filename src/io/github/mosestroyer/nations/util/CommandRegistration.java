@@ -20,13 +20,6 @@ public class CommandRegistration {
 		//nations.getCommand("joinNation").setExecutor(new PlayerCommand(nations));
 		
 		//Spells Commands
-		nations.getCommand("heal").setExecutor(new SpellsCommand(nations));
-		nations.getCommand("growcrops").setExecutor(new SpellsCommand(nations));
-		nations.getCommand("digtunnel").setExecutor(new SpellsCommand(nations));
-		nations.getCommand("fireball").setExecutor(new SpellsCommand(nations));
-		nations.getCommand("arrowstorm").setExecutor(new SpellsCommand(nations));
-		nations.getCommand("teleportspawn").setExecutor(new SpellsCommand(nations));
-		nations.getCommand("killself").setExecutor(new SpellsCommand(nations));
 		nations.getCommand("givespellbook").setExecutor(new SpellsCommand(nations));
 		
 	} //end registerCommands
