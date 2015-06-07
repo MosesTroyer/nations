@@ -18,6 +18,7 @@ import io.github.mosestroyer.nations.spells.AvailableSpells;
 import io.github.mosestroyer.nations.spells.Spellbook;
 import io.github.mosestroyer.nations.util.CommandRegistration;
 import io.github.mosestroyer.nations.util.DatabaseConnection;
+import io.github.mosestroyer.nations.util.ListenerRegistration;
 
 public class Nations extends JavaPlugin implements Listener{
 
@@ -26,6 +27,7 @@ public class Nations extends JavaPlugin implements Listener{
 		try {
 			
 			CommandRegistration.registerCommands(this);
+			ListenerRegistration.registerListeners(this);
 			getServer().getPluginManager().registerEvents(this, this);
 			
 			Connection c = DatabaseConnection.getConnection();

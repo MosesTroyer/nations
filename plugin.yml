@@ -13,6 +13,10 @@ commands:
         description: Shows the list of all created nations
     removeNation:
         description: Removes a nation from the nationlist
+    joinNation:
+        description: Joins a specified nation
+    leaveNation:
+        description: Leave your nation
     growcrops:
         description: Grow the wheat around you
     digtunnel:
