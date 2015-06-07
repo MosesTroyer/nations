@@ -24,7 +24,7 @@ public class Heal extends Spellbook{
 	@Override
 	public boolean doSpell(Player p, Nations n){
 		if(p.getHealth() < p.getMaxHealth()){
-			p.sendMessage(msgText);
+			p.setHealth(p.getMaxHealth());
 			return true;
 		}
 		
