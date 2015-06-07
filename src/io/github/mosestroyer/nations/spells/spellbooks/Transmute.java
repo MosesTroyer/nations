@@ -27,9 +27,8 @@ public class Transmute extends Spellbook{
 	}
 
 	@Override
-	public void doSpell(Player p, Nations n){
-		n.getLogger().info(p.getPlayerListName()+" "+msgText.toLowerCase());
-		p.sendMessage(msgText);
+	public boolean doSpell(Player p, Nations n){
+		boolean ret = false;
 		
 		if(p.getInventory().contains(Material.IRON_INGOT)){
 			
@@ -42,12 +41,14 @@ public class Transmute extends Spellbook{
 						
 						p.getInventory().setItem(i, gold);
 						
+						ret = true;
 					}
 				}
 			}
 			
 		}
 
+		return ret;
 
 	}
 }

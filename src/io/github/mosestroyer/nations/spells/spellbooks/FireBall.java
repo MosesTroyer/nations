@@ -23,10 +23,8 @@ public class FireBall extends Spellbook{
 	}
 	
 	@Override
-	public void doSpell(Player p, Nations n){
-		p.sendMessage(msgText);
-		n.getLogger().info(p.getPlayerListName()+" "+msgText.toLowerCase());
-
+	public boolean doSpell(Player p, Nations n){
 		p.launchProjectile(Fireball.class);
+		return true;
 	}
 }

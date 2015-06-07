@@ -32,13 +32,9 @@ public class GiveSpellbook extends Spellbook{
 	}
 
 	@Override
-	public void doSpell(Player p, Nations n){
+	public boolean doSpell(Player p, Nations n){
 		for(int i=0; i<10; i++){
 			Spellbook sb[] = AvailableSpells.getSpells();
-			
-			n.getLogger().info(p.getPlayerListName()+" "+msgText.toLowerCase());
-			p.sendMessage(msgText);
-			
 			PlayerInventory inv = p.getInventory();
 			
 			ItemStack book = new ItemStack(Material.WRITTEN_BOOK, 1);
@@ -55,6 +51,8 @@ public class GiveSpellbook extends Spellbook{
 			inv.addItem(book);
 
 		}
+		
+		return true;
 		
 	}
 }

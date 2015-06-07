@@ -17,7 +17,7 @@ public class SetupDAO {
 		String sql = "CREATE TABLE IF NOT EXISTS nationsColor (name TEXT PRIMARY KEY NOT NULL, color TEXT)";
 		stmt.executeUpdate(sql);
 		
-		sql = "CREATE TABLE IF NOT EXISTS players (id TEXT PRIMARY KEY NOT NULL, nation TEXT)";
+		sql = "CREATE TABLE IF NOT EXISTS players (id TEXT PRIMARY KEY NOT NULL, nation TEXT, class TEXT)";
 		stmt.executeUpdate(sql);
 		
 		sql = "CREATE TABLE IF NOT EXISTS pedestals (name TEXT, position INTEGER, flag TEXT)";

@@ -36,13 +36,17 @@ public class SpellsListener implements Listener{
 
 				for(int i=0; i < sb.length; i++){
 					if(bm.getTitle().equals(sb[i].getName()) && bm.getPage(1).equals(sb[i].getDescription())){
-						
-						if(book.getAmount() > 1){
-							book.setAmount(book.getAmount() - 1);
-						}else{
-							p.getInventory().remove(book);
+						if(sb[i].doSpell(p, n)){
+							
+							if(book.getAmount() > 1){
+								book.setAmount(book.getAmount() - 1);
+							}else{
+								p.getInventory().remove(book);
+							}
+							
+							n.getLogger().info(p.getPlayerListName() +" " + sb[i].getMsg().toLowerCase());
+							p.sendMessage(sb[i].getMsg());
 						}
-						sb[i].doSpell(p, n);
 
 					}
 				}

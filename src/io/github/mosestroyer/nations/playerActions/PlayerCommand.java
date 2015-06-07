@@ -28,6 +28,7 @@ public class PlayerCommand  implements CommandExecutor {
 		
 		try {
 			
+			//nations stuff
 			if(command.getName().equalsIgnoreCase("joinNation")){
 				if(HelperFunctions.commandCheck(sender, command, label, args, nations, 1, true, false)){
 					return joinNation(sender, command, label, args);
@@ -35,6 +36,14 @@ public class PlayerCommand  implements CommandExecutor {
 			} else if (command.getName().equalsIgnoreCase("leaveNation")){
 				if(HelperFunctions.commandCheck(sender, command, label, args, nations, -1, true, false))
 					return leaveNation(sender, command, label, args);
+			}
+			
+			
+			//classes stuff
+			if(command.getName().equalsIgnoreCase("setClass")){
+				if(HelperFunctions.commandCheck(sender, command, label, args, nations, 2, false, false)){
+					return setPlayerClass(sender, command, label, args);
+				}
 			}
 			
 			
@@ -111,6 +120,28 @@ public class PlayerCommand  implements CommandExecutor {
 		} catch (Exception e) {}
 		
 	} //end setPlayerColor
+	
+	
+	public boolean setPlayerClass(CommandSender s, Command cmd, String l, String[] args){
+		
+		
+		//had to use the depreciated thing to get player name from string..
+		//Hopefully this doesn't come back to bite.
+		@SuppressWarnings("deprecation")
+		Player p = nations.getServer().getPlayer(args[0]);
+		try{
+			Connection c = DatabaseConnection.getConnection();
+			
+			PlayerDAO.setPlayerClass(c, p.getUniqueId(), args[1]);
+			s.sendMessage("Set" + p.getPlayerListName() + "'s class to " + args[1]);
+			p.sendMessage("Your class was changed to " + args[1]);
+		
+			c.close();
+		} catch (Exception e){
+			s.sendMessage("Failed to set class: " + e.getMessage());
+		}
+		return false;
+	} //end setPlayerClass
 	
 } //end PlayerCommand class
 

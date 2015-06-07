@@ -22,12 +22,12 @@ public class Suicide extends Spellbook{
 	}
 
 	@Override
-	public void doSpell(Player p, Nations n){
+	public boolean doSpell(Player p, Nations n){
 		if(p.getHealth() > 0){
 			p.setHealth(0);
-			n.getLogger().info(p.getPlayerListName()+" "+msgText.toLowerCase());
-			p.sendMessage(msgText);
+			return true;
 		}
+		return false;
 	}
 		
 		

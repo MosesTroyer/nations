@@ -14,6 +14,11 @@ public class PlayerDAO {
 	
 	private final static String DELETE_PLAYER_NATION = "DELETE FROM PLAYERS WHERE id = ";
 	
+	private final static String SELECT_PLAYER_CLASS = "SELECT class FROM PLAYERS WHERE id = ";
+	
+	private final static String INSERT_PLAYER_CLASS = "INSERT INTO PLAYERS (id, class) VALUES ";
+	
+	
 	public static String getPlayerNation(Connection c, UUID id) throws SQLException {
 		
 		Statement stmt = c.createStatement();
@@ -42,5 +47,31 @@ public class PlayerDAO {
 		
 		stmt.close();
 	} //end leaveNation
+	
+	
+	
+	//TO ME: Change these when you actually have classes made so that it throws exception
+	//if invalid class, whatever, so that people don't have fake classes that do nothing.
+	public static String getPlayerClass(Connection c, UUID id) throws SQLException{
+		Statement stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery(SELECT_PLAYER_CLASS + "'" + id + "'");
+		
+		if(rs.next()){
+			String ret = rs.getString("class");
+			stmt.close();
+			return ret;
+		}
+		
+		stmt.close();
+		return "";
+	}//end getPlayerClass
+	
+	public static void setPlayerClass(Connection c, UUID id, String className) throws SQLException{
+		Statement stmt = c.createStatement();
+		
+		stmt.executeQuery(INSERT_PLAYER_CLASS + "('" + id + "', '" + className + "')");
+		
+		stmt.close();
+	}
 	
 } //end PlayerDAO class

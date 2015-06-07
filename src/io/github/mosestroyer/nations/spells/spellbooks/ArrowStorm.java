@@ -25,13 +25,12 @@ public class ArrowStorm extends Spellbook{
 	}
 	
 	@Override
-	public void doSpell(Player p, Nations n){
-		n.getLogger().info(p.getPlayerListName()+" "+msgText.toLowerCase());
-		p.sendMessage(msgText);
+	public boolean doSpell(Player p, Nations n){
 	
 		for(int j=0; j<s; j++){
 			p.launchProjectile(Arrow.class);
 		}
 		
+		return true;
 	}
 }

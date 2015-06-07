@@ -28,11 +28,10 @@ public class GrowCrops extends Spellbook {
 	}
 	
 	@Override
-	public void doSpell(Player p, Nations n){
+	public boolean doSpell(Player p, Nations n){
 		Location loc = p.getLocation();
-		p.sendMessage(msgText);
-		n.getLogger().info(p.getPlayerListName()+" "+msgText.toLowerCase());
 		World world = loc.getWorld();
+		boolean ret = false;
 		
 		int x1 = loc.getBlockX() - r/2;
 		int y1 = loc.getBlockY() - r/2;
@@ -50,12 +49,13 @@ public class GrowCrops extends Spellbook {
 						BlockState bs = cb.getState();
 						bs.setData(new Crops(CropState.RIPE));
 						bs.update();
+						ret = true;
 					}
 				}
 			}
 		}
 		
-		
+		return ret;
 		
 	}
 	

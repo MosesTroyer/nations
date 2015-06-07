@@ -25,12 +25,12 @@ public class TeleportSpawn extends Spellbook{
 	}
 
 	@Override
-	public void doSpell(Player p, Nations n){
-		n.getLogger().info(p.getPlayerListName()+" "+msgText.toLowerCase());
-		p.sendMessage(msgText);
+	public boolean doSpell(Player p, Nations n){
 		
 		//change for when we have a real spawn, this is just where I spawned.
 		Location loc = new Location(p.getWorld(),-3040,34,1692);
 		p.teleport(loc);
+		
+		return true;
 	}
 }

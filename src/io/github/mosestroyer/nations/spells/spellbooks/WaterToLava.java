@@ -10,20 +10,22 @@ import org.bukkit.util.Vector;
 import io.github.mosestroyer.nations.Nations;
 import io.github.mosestroyer.nations.spells.Spellbook;
 
-public class DigTunnel extends Spellbook{
 
-	String name = "Dig Tunnel";
-	String description = "Dig: A spell that will dig a hole right to the other side of minecraft! Just left click to cast";
-	String msgText = "Dug the hole!";
+
+public class WaterToLava extends Spellbook{
+	
+	String name = "Water to Lava";
+	String description = "Water to Lava: Turns a block of water to lava! Just left click to cast";
+	String msgText = "Turned the water!";
 	int tier = 1;
 	
-	public DigTunnel(){
+	public WaterToLava(){ //Change from BlankSpell to name of the spell!
 		super.setName(name);
 		super.setDescription(description);
 		super.setMsg(msgText);
 		super.setTier(tier);
 	}
-	
+
 	@Override
 	public boolean doSpell(Player p, Nations n){
 		
@@ -31,18 +33,16 @@ public class DigTunnel extends Spellbook{
 		Vector dir = loc.getDirection().normalize();
 		
 		Block block;
-		Block block2;
 		
-		for(int i=0; i<20; i++){
+		for(int i=0; i<10; i++){
 			block = loc.add(dir).getBlock();
-			block2 = p.getWorld().getBlockAt(block.getX(), block.getY()+1, block.getZ());
 			
-			((Block) block).setType(Material.AIR);
-			((Block) block2).setType(Material.AIR);
-
+			if(block.getType().equals(Material.STATIONARY_WATER)){
+				((Block) block).setType(Material.STATIONARY_LAVA);
+				return true;
+			}
 		}
 		
-		return true;
-		
+		return false;
 	}
 }

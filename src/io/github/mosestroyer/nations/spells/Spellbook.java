@@ -15,11 +15,8 @@ public class Spellbook {
 	//TODO
 	//Create spellbook parent object
 
-	public void doSpell(Player p, Nations n) {
-		// TODO Auto-generated method stub		
-	}
-
-	public void doSpell(Player p, Nations n, int s) {
+	public boolean doSpell(Player p, Nations n) {
+		return false;
 		// TODO Auto-generated method stub		
 	}
 	

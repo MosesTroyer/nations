@@ -19,20 +19,8 @@ commands:
         description: Joins a specified nation
     leaveNation:
         description: Leave your nation
-    growcrops:
-        description: Grow the wheat around you
-    digtunnel:
-        description: Digs a tunnel in front of you
-    heal:
-         description: Heals your Player
-    fireball:
-         description: Shoots a fireball!
-    arrowstorm:
-         description: shoots a stream of arrows
-    teleportspawn:
-         description: teleports you home
-    killself:
-         description: kills you
+    setClass:
+       description: Sets the player's class
     givespellbook:
          description: gives you a spellbook
          
