@@ -1,16 +1,6 @@
 package io.github.mosestroyer.nations.spells.spellbooks;
 
 
-
-import java.util.ArrayList;
-
-
-
-
-
-
-
-
 import java.util.Random;
 
 import org.bukkit.Material;
@@ -18,8 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.BookMeta;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.metadata.FixedMetadataValue;
 
 import io.github.mosestroyer.nations.Nations;
 import io.github.mosestroyer.nations.spells.AvailableSpells;
@@ -57,7 +45,7 @@ public class GiveSpellbook extends Spellbook{
 			BookMeta bd = (BookMeta) book.getItemMeta();
 			
 			Random rand = new Random();
-			int ranNum = rand.nextInt(sb.length-1);
+			int ranNum = rand.nextInt(sb.length);
 			
 			bd.addPage(sb[ranNum].getDescription());
 			bd.setAuthor("The Wizard");

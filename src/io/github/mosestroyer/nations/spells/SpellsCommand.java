@@ -1,13 +1,8 @@
 package io.github.mosestroyer.nations.spells;
 
 import io.github.mosestroyer.nations.Nations;
-import io.github.mosestroyer.nations.spells.spellbooks.ArrowStorm;
-import io.github.mosestroyer.nations.spells.spellbooks.FireBall;
 import io.github.mosestroyer.nations.spells.spellbooks.GiveSpellbook;
-import io.github.mosestroyer.nations.spells.spellbooks.GrowCrops;
-import io.github.mosestroyer.nations.spells.spellbooks.Heal;
-import io.github.mosestroyer.nations.spells.spellbooks.Suicide;
-import io.github.mosestroyer.nations.spells.spellbooks.TeleportSpawn;
+
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

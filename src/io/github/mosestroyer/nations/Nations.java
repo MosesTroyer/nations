@@ -3,19 +3,10 @@ package io.github.mosestroyer.nations;
 
 import java.sql.Connection;
 
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.mosestroyer.nations.setup.SetupDAO;
-import io.github.mosestroyer.nations.spells.AvailableSpells;
-import io.github.mosestroyer.nations.spells.Spellbook;
 import io.github.mosestroyer.nations.util.CommandRegistration;
 import io.github.mosestroyer.nations.util.DatabaseConnection;
 import io.github.mosestroyer.nations.util.ListenerRegistration;

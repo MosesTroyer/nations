@@ -1,12 +1,10 @@
 package io.github.mosestroyer.nations.spells.spellbooks;
 
-
-
-import java.util.HashMap;
-
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
+
+
+
 import org.bukkit.inventory.ItemStack;
 
 import io.github.mosestroyer.nations.Nations;
@@ -17,8 +15,7 @@ import io.github.mosestroyer.nations.spells.Spellbook;
 public class Transmute extends Spellbook{
 	
 	String name = "Transmutation";
-	String id = "transmute-nationsplugin-56732437654";
-	String description = "Transmuation: A spell that transmutes iron to gold! Just left click to cast";
+	String description = "Transmuation: A spell that transmutes the iron in your inventory to gold! Just left click to cast";
 	String msgText = "Did the alchemy!";
 	int tier = 1;
 	
@@ -34,7 +31,22 @@ public class Transmute extends Spellbook{
 		n.getLogger().info(p.getPlayerListName()+" "+msgText.toLowerCase());
 		p.sendMessage(msgText);
 		
-		
+		if(p.getInventory().contains(Material.IRON_INGOT)){
+			
+			for(int i=0; i < p.getInventory().getSize(); i++){
+				if(p.getInventory().getItem(i) != null){
+					if(p.getInventory().getItem(i).getType().equals(Material.IRON_INGOT)){
+						ItemStack iron = p.getInventory().getItem(i);
+						ItemStack gold = new ItemStack(Material.GOLD_INGOT);
+						gold.setAmount(iron.getAmount());
+						
+						p.getInventory().setItem(i, gold);
+						
+					}
+				}
+			}
+			
+		}
 
 
 	}
