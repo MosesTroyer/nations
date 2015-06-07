@@ -20,6 +20,9 @@ public class SetupDAO {
 		sql = "CREATE TABLE IF NOT EXISTS players (id TEXT PRIMARY KEY NOT NULL, nation TEXT)";
 		stmt.executeUpdate(sql);
 		
+		sql = "CREATE TABLE IF NOT EXISTS pedestals (name TEXT, position INTEGER, flag TEXT)";
+		stmt.executeUpdate(sql);
+		
 		stmt.close();
 		
 	} //end checkForTables

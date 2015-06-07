@@ -37,7 +37,10 @@ public class SetupCommand implements CommandExecutor {
 				//TODO(moses)
 				//Check for nations board before letting this command run
 				if(HelperFunctions.commandCheck(sender, command, label, args, nations, 1, true, false))
-						return createPedestal(sender, command, label, args);
+						return createPedestal(sender, command, label, args, nations);
+			} else if (command.getName().equalsIgnoreCase("removePedestal")) {
+				if(HelperFunctions.commandCheck(sender, command, label, args, nations, 1, false, false))
+					return removePedestal(sender, command, label, args, nations);
 			} else if(command.getName().equalsIgnoreCase("createNation")){
 				if(HelperFunctions.commandCheck(sender, command, label, args, nations, 2, false, false)){
 					return createNation(sender, command, label, args, nations);
@@ -63,10 +66,24 @@ public class SetupCommand implements CommandExecutor {
 		return false;
 	} //end createNationsBoard
 	
-	private boolean createPedestal(CommandSender sender, Command command, String label, String[] args){
+	private boolean createPedestal(CommandSender sender, Command command, String label, String[] args, Nations nations){
+		
+		//TODO (moses)
+		//Remove Prior pedestal if exists
+		
+		//TODO (moses)
+		//Create New Pedestal under feet
+		
+		//TODO (moses)
+		//Register Pedestal positions in DB
 			
 		return false;
 	} //end createPedestal
+	
+	private boolean removePedestal(CommandSender sender, Command command, String label, String[] args, Nations nations){
+		
+		return false;
+	} //end removePedestal
 	
 	private boolean createNation(CommandSender sender, Command command, String label, String[] args, Nations nations) throws SQLException{
 		Connection c = DatabaseConnection.getConnection();
@@ -82,12 +99,12 @@ public class SetupCommand implements CommandExecutor {
 			if(n.getName().equals(name)){
 				HelperFunctions.sendSenderMessage(nations, sender, "Cannot create nation, already exists!");
 				DatabaseConnection.closeConnection(c);
-				return false;
+				return true;
 			}
 			if(n.getColor().equals(color)){
 				HelperFunctions.sendSenderMessage(nations, sender, "Cannot create nation, color already in use!");
 				DatabaseConnection.closeConnection(c);
-				return false;
+				return true;
 			}
 		}
 		
@@ -96,7 +113,7 @@ public class SetupCommand implements CommandExecutor {
 		} catch (Exception e) {
 			HelperFunctions.sendSenderMessage(nations, sender, "Cannot create nation, given color is not a dye color!");
 			DatabaseConnection.closeConnection(c);
-			return false;
+			return true;
 		}
 		
 		SetupDAO.createNation(c, name, color);

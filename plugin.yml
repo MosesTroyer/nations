@@ -7,6 +7,8 @@ commands:
         description: Creates a board to display nations and other information
     createPedestal:
         description: Creates a pedestal for a designated nation
+    removePedestal:
+        description: Removes a pedestal for a designated nation
     createNation:
         description: Allows an admin to setup a new nation
     showNations:

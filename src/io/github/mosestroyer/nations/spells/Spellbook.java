@@ -14,19 +14,14 @@ public class Spellbook {
 	
 	//TODO
 	//Create spellbook parent object
-	
 
-	
 	public void doSpell(Player p, Nations n) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	public void doSpell(Player p, Nations n, int s) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
-	
 	
 	public String getName(){
 		return name;

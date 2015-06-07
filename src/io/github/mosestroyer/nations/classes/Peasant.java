@@ -1,4 +1,4 @@
-package io.gethub.mosestroyer.nations.classes;
+package io.github.mosestroyer.nations.classes;
 
 public class Peasant extends Character{
 	
