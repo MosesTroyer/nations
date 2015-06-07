@@ -11,14 +11,12 @@ import io.github.mosestroyer.nations.Nations;
 public class BlankSpell extends Spellbook{
 	
 	String name = "";
-	String id = "-nationsplugin-56732437654";
-	String description = "";
+	String description = "Just left click to cast";
 	String msgText = "";
 	int tier = 1;
 	
 	public BlankSpell(){ //Change from BlankSpell to name of the spell!
 		super.setName(name);
-		super.setId(id);
 		super.setDescription(description);
 		super.setMsg(msgText);
 		super.setTier(tier);
@@ -26,7 +24,7 @@ public class BlankSpell extends Spellbook{
 
 	@Override
 	public void doSpell(Player p, Nations n){
-		n.getLogger().info(msgText);
+		n.getLogger().info(p.getPlayerListName()+" "+msgText.toLowerCase());
 		p.sendMessage(msgText);
 	}
 }

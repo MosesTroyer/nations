@@ -15,15 +15,13 @@ import io.github.mosestroyer.nations.spells.Spellbook;
 public class GrowCrops extends Spellbook {
 
 	String name = "Grow Crops";
-	String id = "growcrops-nationsplugin-56732437654";
-	String description = "A spell that crows all crops within an area!";
+	String description = "Grow: A spell that grows all crops within an area! Just left click to cast";
 	String msgText = "Grew the crops!";
 	int tier = 1;
 	int r = 20;
 	
 	public GrowCrops(){
 		super.setName(name);
-		super.setId(id);
 		super.setDescription(description);
 		super.setMsg(msgText);
 		super.setTier(tier);
@@ -33,7 +31,7 @@ public class GrowCrops extends Spellbook {
 	public void doSpell(Player p, Nations n){
 		Location loc = p.getLocation();
 		p.sendMessage(msgText);
-		n.getLogger().info(p.getDisplayName()+msgText);
+		n.getLogger().info(p.getPlayerListName()+" "+msgText.toLowerCase());
 		World world = loc.getWorld();
 		
 		int x1 = loc.getBlockX() - r/2;

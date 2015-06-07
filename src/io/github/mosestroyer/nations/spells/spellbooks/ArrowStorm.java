@@ -11,8 +11,7 @@ import io.github.mosestroyer.nations.spells.Spellbook;
 public class ArrowStorm extends Spellbook{
 	
 	String name = "Arrow Storm";
-	String id = "arrowstorm-nationsplugin-56732437654";
-	String description = "Unleashes a storm of arrows upon your foes!";
+	String description = "Arrow Storm: Unleashes a storm of arrows upon your foes! Just left click to cast";
 	String msgText = "Stormed the arrows!";
 	int tier = 1;
 	
@@ -20,7 +19,6 @@ public class ArrowStorm extends Spellbook{
 	
 	public ArrowStorm(){
 		super.setName(name);
-		super.setId(id);
 		super.setDescription(description);
 		super.setMsg(msgText);
 		super.setTier(tier);
@@ -28,7 +26,7 @@ public class ArrowStorm extends Spellbook{
 	
 	@Override
 	public void doSpell(Player p, Nations n){
-		n.getLogger().info(msgText);
+		n.getLogger().info(p.getPlayerListName()+" "+msgText.toLowerCase());
 		p.sendMessage(msgText);
 	
 		for(int j=0; j<s; j++){

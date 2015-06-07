@@ -13,14 +13,12 @@ import io.github.mosestroyer.nations.spells.Spellbook;
 public class DigTunnel extends Spellbook{
 
 	String name = "Dig Tunnel";
-	String id = "digtunnel-nationsplugin-56732437654";
-	String description = "A spell that will dig a hole right to the other side of minecraft!";
+	String description = "Dig: A spell that will dig a hole right to the other side of minecraft! Just left click to cast";
 	String msgText = "Dug the hole!";
 	int tier = 1;
 	
 	public DigTunnel(){
 		super.setName(name);
-		super.setId(id);
 		super.setDescription(description);
 		super.setMsg(msgText);
 		super.setTier(tier);
@@ -30,7 +28,7 @@ public class DigTunnel extends Spellbook{
 	public void doSpell(Player p, Nations n, int s){
 		Location loc = p.getLocation();
 		
-		n.getLogger().info(p.getDisplayName() + msgText);
+		n.getLogger().info(p.getPlayerListName()+" "+msgText.toLowerCase());
 		p.sendMessage(msgText);
 		World world = loc.getWorld();
 		

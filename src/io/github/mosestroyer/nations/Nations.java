@@ -56,35 +56,5 @@ public class Nations extends JavaPlugin implements Listener{
 
 	} //end onDisable
 	
-	
-	//Right click listener
-	@EventHandler
-	public void RCListener(PlayerInteractEvent event){
-		Action la = event.getAction();
-		Player p = event.getPlayer();
-		Spellbook sb[] = AvailableSpells.getSpells();
-		
-		
-		if(la == Action.RIGHT_CLICK_AIR || la == Action.RIGHT_CLICK_BLOCK){
-			
-			if(p.getItemInHand().getType().equals(Material.WRITTEN_BOOK)){
-
-				ItemStack book = p.getItemInHand();
-				BookMeta bm = (BookMeta) book.getItemMeta();
-				getLogger().info(bm.getTitle() + " " + bm.getPage(1));
-				getLogger().info(sb[0].getName() + " " + sb[0].getId());
-				
-				for(int i=0; i<sb.length; i++){
-					if(bm.getTitle().equals(sb[i].getName()) && bm.getPage(1).equals(sb[i].getId())){
-						p.getInventory().removeItem(book);
-						p.openInventory(p.getInventory());
-						p.closeInventory();
-						sb[i].doSpell(p, this);
-					}
-				}
-
-			}
-		}
-	} //end rclistener
 
 } //end Nations class

@@ -15,7 +15,7 @@ public class AvailableSpells {
 
 	
 	public static Spellbook[] getSpells(){
-		sb = new Spellbook[10]; //Change depending on # of spells
+		sb = new Spellbook[9]; //Change depending on # of spells
 		sb[0] = new ArrowStorm();
 		sb[1] = new DigTunnel();
 		sb[2] = new FireBall();

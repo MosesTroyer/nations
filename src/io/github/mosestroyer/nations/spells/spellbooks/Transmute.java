@@ -18,13 +18,12 @@ public class Transmute extends Spellbook{
 	
 	String name = "Transmutation";
 	String id = "transmute-nationsplugin-56732437654";
-	String description = "A spell that transmutes iron to gold!";
+	String description = "Transmuation: A spell that transmutes iron to gold! Just left click to cast";
 	String msgText = "Did the alchemy!";
 	int tier = 1;
 	
 	public Transmute(){ 
 		super.setName(name);
-		super.setId(id);
 		super.setDescription(description);
 		super.setMsg(msgText);
 		super.setTier(tier);
@@ -32,7 +31,7 @@ public class Transmute extends Spellbook{
 
 	@Override
 	public void doSpell(Player p, Nations n){
-		n.getLogger().info(msgText);
+		n.getLogger().info(p.getPlayerListName()+" "+msgText.toLowerCase());
 		p.sendMessage(msgText);
 		
 		

@@ -26,9 +26,6 @@ public class Spellbook {
 	public String getName(){
 		return name;
 	}
-	public String getId(){
-		return id;
-	}
 	public String getDescription(){
 		return description;
 	}
@@ -41,9 +38,6 @@ public class Spellbook {
 	}
 	public void setName(String n){
 		name = n;
-	}
-	public void setId(String i){
-		id = i;
 	}
 	public void setDescription(String s1){
 		description = s1;

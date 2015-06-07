@@ -30,15 +30,13 @@ import io.github.mosestroyer.nations.spells.Spellbook;
 public class GiveSpellbook extends Spellbook{
 	
 	String name = "Give Spell Book";
-	String id = "givespellbook-nationsplugin-56732437654";
-	String description = "Gives the player a spellbook";
+	String description = "Give Spellbook: You shouldn't have this... Left click to cast";
 	String msgText = "Gave the Spellbook!";
 	int tier = 1;
 	
 	
 	public GiveSpellbook(){ //Change from BlankSpell to name of the spell!
 		super.setName(name);
-		super.setId(id);
 		super.setDescription(description);
 		super.setMsg(msgText);
 		super.setTier(tier);
@@ -47,26 +45,28 @@ public class GiveSpellbook extends Spellbook{
 
 	@Override
 	public void doSpell(Player p, Nations n){
-		Spellbook sb[] = AvailableSpells.getSpells();
-		
-		n.getLogger().info(msgText);
-		p.sendMessage(msgText);
-		
-		PlayerInventory inv = p.getInventory();
-		
-		ItemStack book = new ItemStack(Material.WRITTEN_BOOK, 1);
-		BookMeta bd = (BookMeta) book.getItemMeta();
-		
-		Random rand = new Random();
-		int ranNum = rand.nextInt(10);
-		
-		bd.addPage(sb[ranNum].getId());
-		bd.setAuthor("The Wizard");
-		bd.setTitle(sb[ranNum].getName());
+		for(int i=0; i<10; i++){
+			Spellbook sb[] = AvailableSpells.getSpells();
+			
+			n.getLogger().info(p.getPlayerListName()+" "+msgText.toLowerCase());
+			p.sendMessage(msgText);
+			
+			PlayerInventory inv = p.getInventory();
+			
+			ItemStack book = new ItemStack(Material.WRITTEN_BOOK, 1);
+			BookMeta bd = (BookMeta) book.getItemMeta();
+			
+			Random rand = new Random();
+			int ranNum = rand.nextInt(sb.length-1);
+			
+			bd.addPage(sb[ranNum].getDescription());
+			bd.setAuthor("The Wizard");
+			bd.setTitle(sb[ranNum].getName());
+	
+			book.setItemMeta(bd);
+			inv.addItem(book);
 
-		book.setItemMeta(bd);
-		inv.addItem(book);
-		p.updateInventory();
+		}
 		
 	}
 }

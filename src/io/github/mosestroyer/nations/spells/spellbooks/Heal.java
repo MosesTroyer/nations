@@ -10,14 +10,12 @@ import io.github.mosestroyer.nations.spells.Spellbook;
 public class Heal extends Spellbook{
 	
 	String name = "Heal";
-	String id = "heal-nationsplugin-56732437654";
-	String description = "A spell that will leave you feeling ";
+	String description = "Heal: A spell that will leave you feeling great! Just left click to cast";
 	String msgText = "Healed the body!";
 	int tier = 1;
 
 	public Heal(){
 		super.setName(name);
-		super.setId(id);
 		super.setDescription(description);
 		super.setMsg(msgText);
 		super.setTier(tier);
@@ -27,7 +25,7 @@ public class Heal extends Spellbook{
 	public void doSpell(Player p, Nations n){
 		if(p.getHealth() < p.getMaxHealth()){
 			p.setHealth(p.getMaxHealth());
-			n.getLogger().info(p.getDisplayName() + msgText);
+			n.getLogger().info(p.getPlayerListName()+" "+msgText.toLowerCase());
 			p.sendMessage(msgText);
 		}
 	}
