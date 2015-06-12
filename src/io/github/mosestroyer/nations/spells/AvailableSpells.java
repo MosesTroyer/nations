@@ -6,6 +6,7 @@ import io.github.mosestroyer.nations.spells.spellbooks.FireBall;
 import io.github.mosestroyer.nations.spells.spellbooks.GiveSpellbook;
 import io.github.mosestroyer.nations.spells.spellbooks.GrowCrops;
 import io.github.mosestroyer.nations.spells.spellbooks.Heal;
+import io.github.mosestroyer.nations.spells.spellbooks.LightningStrike;
 import io.github.mosestroyer.nations.spells.spellbooks.Suicide;
 import io.github.mosestroyer.nations.spells.spellbooks.TeleportSpawn;
 import io.github.mosestroyer.nations.spells.spellbooks.Transmute;
@@ -16,7 +17,7 @@ public class AvailableSpells {
 
 	
 	public static Spellbook[] getSpells(){
-		sb = new Spellbook[10]; //Change depending on # of spells
+		sb = new Spellbook[11]; //Change depending on # of spells
 		sb[0] = new ArrowStorm();
 		sb[1] = new DigTunnel();
 		sb[2] = new FireBall();
@@ -27,6 +28,7 @@ public class AvailableSpells {
 		sb[7] = new TeleportSpawn();
 		sb[8] = new Transmute();
 		sb[9] = new WaterToLava();
+		sb[10] = new LightningStrike();
 		return sb;
 	}
 }
