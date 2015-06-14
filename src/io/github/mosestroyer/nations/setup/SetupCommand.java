@@ -9,7 +9,6 @@ import io.github.mosestroyer.nations.nation.NationDAO;
 import io.github.mosestroyer.nations.util.DatabaseConnection;
 import io.github.mosestroyer.nations.util.HelperFunctions;
 
-import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -20,7 +19,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Horse.Color;
 import org.bukkit.material.Wool;
 
 public class SetupCommand implements CommandExecutor {
@@ -96,9 +94,9 @@ public class SetupCommand implements CommandExecutor {
 			int y = yMin;
 			int z;
 			
-			int xMax;
-			int yMax;
-			int zMax;
+//			int xMax;
+//			int yMax;
+//			int zMax;
 			
 			//bottom base
 			for(x = xMin; x < xMin + 7; x++){

@@ -18,7 +18,6 @@ public class PlayerDAO {
 	
 	private final static String INSERT_PLAYER_CLASS = "INSERT INTO PLAYERS (id, class) VALUES ";
 	
-	private final static String UPDATE_PLAYER_CLASS = "UPDATE PLAYERS SET class WHERE class = ";
 	
 	
 	public static String getPlayerNation(Connection c, UUID id) throws SQLException {
