@@ -133,7 +133,7 @@ public class PlayerCommand  implements CommandExecutor {
 			Connection c = DatabaseConnection.getConnection();
 			
 			PlayerDAO.setPlayerClass(c, p.getUniqueId(), args[1]);
-			s.sendMessage("Set" + p.getPlayerListName() + "'s class to " + args[1]);
+			s.sendMessage("Set " + p.getPlayerListName() + "'s class to " + args[1]);
 			p.sendMessage("Your class was changed to " + args[1]);
 		
 			c.close();

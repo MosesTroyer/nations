@@ -1,5 +1,5 @@
 package io.github.mosestroyer.nations.classes;
 
-public class Peasant extends CharacterClass{
-	
+public class Acrobat extends CharacterClass{
+
 }

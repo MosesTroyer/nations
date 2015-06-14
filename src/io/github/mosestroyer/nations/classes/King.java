@@ -1,5 +1,5 @@
 package io.github.mosestroyer.nations.classes;
 
-public class King extends Character{
+public class King extends CharacterClass{
 
 }

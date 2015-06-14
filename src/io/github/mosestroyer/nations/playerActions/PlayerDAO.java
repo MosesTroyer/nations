@@ -18,6 +18,8 @@ public class PlayerDAO {
 	
 	private final static String INSERT_PLAYER_CLASS = "INSERT INTO PLAYERS (id, class) VALUES ";
 	
+	private final static String UPDATE_PLAYER_CLASS = "UPDATE PLAYERS SET class WHERE class = ";
+	
 	
 	public static String getPlayerNation(Connection c, UUID id) throws SQLException {
 		
@@ -69,7 +71,12 @@ public class PlayerDAO {
 	public static void setPlayerClass(Connection c, UUID id, String className) throws SQLException{
 		Statement stmt = c.createStatement();
 		
-		stmt.executeQuery(INSERT_PLAYER_CLASS + "('" + id + "', '" + className + "')");
+		if(getPlayerClass(c, id).equals("")){
+			stmt.executeUpdate(INSERT_PLAYER_CLASS + "('" + id + "', '" + className + "')");
+		}else{
+			stmt.executeUpdate("UPDATE PLAYERS SET class = '" + className + "' WHERE id = '" + id + "' " );
+		}
+		
 		
 		stmt.close();
 	}

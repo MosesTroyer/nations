@@ -40,8 +40,6 @@ public class LightningStrike extends Spellbook{
 			
 			if(!block.getType().equals(Material.AIR)){
 				p.getWorld().strikeLightning(block.getLocation());
-				n.getLogger().info(p.getPlayerListName()+" "+msgText.toLowerCase());
-				p.sendMessage(msgText);
 				return true;
 			}
 		}

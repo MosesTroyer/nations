@@ -32,13 +32,16 @@ public class DigTunnel extends Spellbook{
 		
 		Block block;
 		Block block2;
+		Block block3;
 		
 		for(int i=0; i<20; i++){
 			block = loc.add(dir).getBlock();
 			block2 = p.getWorld().getBlockAt(block.getX(), block.getY()+1, block.getZ());
+			block3 = p.getWorld().getBlockAt(block.getX(), block.getY()+2, block.getZ());
 			
 			((Block) block).setType(Material.AIR);
 			((Block) block2).setType(Material.AIR);
+			((Block) block3).setType(Material.AIR);
 
 		}
 		
