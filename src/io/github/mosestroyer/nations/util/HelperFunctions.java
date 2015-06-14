@@ -1,9 +1,12 @@
 package io.github.mosestroyer.nations.util;
 
 import io.github.mosestroyer.nations.Nations;
+import io.github.mosestroyer.nations.nation.Nation;
+import io.github.mosestroyer.nations.nation.NationDAO;
 import io.github.mosestroyer.nations.util.DatabaseConnection;
 
 import java.security.InvalidParameterException;
+import java.sql.Connection;
 
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -95,5 +98,30 @@ public class HelperFunctions {
 			
 		return ChatColor.WHITE;
 	} //end dyeColorToChatColor
+	
+	//returns true if nation exists
+	public static boolean nationExists(String name) throws Exception {
+		try {
+			Connection c = DatabaseConnection.getConnection();
+			
+			NationDAO.getNations(c);
+			
+			Nation[] nationList = NationDAO.getNations(c);
+			
+			for(Nation n : nationList){
+				if(n.getName().equals(name)){
+					DatabaseConnection.closeConnection(c);
+					return true;
+				}
+			}
+			
+			DatabaseConnection.closeConnection(c);
+
+			return false;
+		} catch (Exception e){
+			throw e;
+		}
+		
+	} //end nationExists
 	
 } //end HelperFunctions class

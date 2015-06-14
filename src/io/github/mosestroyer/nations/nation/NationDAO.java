@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class NationDAO {
 	
 	private static String SELECT_NATION = "SELECT * FROM nationsColor ";
+	private static String SELECT_COLOR = "SELECT color FROM nationsColor ";
 	private static String WHERE_NAME = "WHERE name = ";
 
 	public static Nation[] getNations(Connection c) throws SQLException {
@@ -43,5 +44,16 @@ public class NationDAO {
 		stmt.close();
 		throw new SQLException("Nation does not exist!");
 	} //end getNationByName
+	
+	public static String getColorByName(Connection c, String name) throws SQLException {
+		Statement stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery(SELECT_COLOR + WHERE_NAME + "'" + name + "'");
+		
+		if(rs.next()){
+			return rs.getString("color");
+		}
+		
+		throw new SQLException("Nation does not exist!");
+	} //end getColorByName
 
 } //end NationDAO class

@@ -11,11 +11,17 @@ import io.github.mosestroyer.nations.util.HelperFunctions;
 
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Horse.Color;
+import org.bukkit.material.Wool;
 
 public class SetupCommand implements CommandExecutor {
 	
@@ -67,6 +73,70 @@ public class SetupCommand implements CommandExecutor {
 	} //end createNationsBoard
 	
 	private boolean createPedestal(CommandSender sender, Command command, String label, String[] args, Nations nations){
+		try {
+			
+			removePedestal(sender, command, label, args, nations);
+			
+			Location loc = ((Player) sender).getLocation();
+			World world = loc.getWorld();
+			String nationName = args[0];
+			
+			if(!HelperFunctions.nationExists(nationName)){
+				sender.sendMessage("Could not create pedestal, nation does not exist!");
+				return true;
+			}
+			
+			Connection c = DatabaseConnection.getConnection();
+			
+			int xMin = loc.getBlockX() - 3;
+			int yMin = loc.getBlockY() - 3;
+			int zMin = loc.getBlockZ() - 3;
+			
+			int x;
+			int y = yMin;
+			int z;
+			
+			int xMax;
+			int yMax;
+			int zMax;
+			
+			//bottom base
+			for(x = xMin; x < xMin + 7; x++){
+				for(z = zMin; z < zMin + 7; z++){
+					Block currentBlock = world.getBlockAt(x, y, z);
+					currentBlock.setType(Material.BEDROCK);
+				}
+			}
+			
+			//stands
+			y++;
+			for(x = xMin + 1; x < xMin + 7; x +=2){
+				for(z = zMin + 1; z < zMin + 7; z +=2){
+					Block currentBlock = world.getBlockAt(x, y, z);
+					//db - add block x y+1 z
+					currentBlock.setType(Material.BEDROCK);
+				}
+			}
+			
+			//flag
+			Block currentBlock = world.getBlockAt(xMin + 3, yMin + 2, zMin + 3);
+			currentBlock.setType(Material.WOOL);
+			
+			BlockState bs = currentBlock.getState();
+			Wool woolmat = (Wool) bs.getData();
+			woolmat.setColor(DyeColor.valueOf(NationDAO.getColorByName(c, nationName)));
+			bs.setData(woolmat);
+			bs.update();
+			
+			DatabaseConnection.closeConnection(c);
+			
+			return true;
+		} catch (Exception e){
+			HelperFunctions.sendSenderMessage(nations, sender, "Failed to create pedestal!");
+			nations.getLogger().info(e.getMessage());
+			return false;
+		}
+		
 		
 		//TODO (moses)
 		//Remove Prior pedestal if exists
@@ -76,13 +146,25 @@ public class SetupCommand implements CommandExecutor {
 		
 		//TODO (moses)
 		//Register Pedestal positions in DB
-			
-		return false;
 	} //end createPedestal
 	
 	private boolean removePedestal(CommandSender sender, Command command, String label, String[] args, Nations nations){
+		try {
+			//TODO remove physical blocks
+			
+			//TODO
+			//remove DB references
+			
+			//TODO
+			//remove flags from other nations
+			//DONT FORGET THIS IN REMOVE NATIONS
+			
+			return false;
+		} catch (Exception e){
+			HelperFunctions.sendSenderMessage(nations, sender, "Failed to remove pedestal!");
+			return false;
+		}
 		
-		return false;
 	} //end removePedestal
 	
 	private boolean createNation(CommandSender sender, Command command, String label, String[] args, Nations nations) throws SQLException{
