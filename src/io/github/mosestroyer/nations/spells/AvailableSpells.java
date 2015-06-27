@@ -12,6 +12,12 @@ import io.github.mosestroyer.nations.spells.spellbooks.TeleportSpawn;
 import io.github.mosestroyer.nations.spells.spellbooks.Transmute;
 import io.github.mosestroyer.nations.spells.spellbooks.WaterToLava;
 
+/*
+ * Creates a list of spells so that we can reference a "book" to take specific
+ * spells from. They are stored in a Spellbook arry, since all spells inherit Spellbook.
+ * 
+ */
+
 public class AvailableSpells {
 	static Spellbook sb[];
 
@@ -29,6 +35,6 @@ public class AvailableSpells {
 		sb[8] = new Transmute();
 		sb[9] = new WaterToLava();
 		sb[10] = new LightningStrike();
-		return sb;
+		return sb; //returns the book
 	}
 }

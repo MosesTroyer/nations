@@ -13,6 +13,9 @@ public class ListenerRegistration {
 		//Spells Listener
 		nations.getServer().getPluginManager().registerEvents(new SpellsListener(nations), nations);
 		
+		//Class Listeners
+		//TODO lots of shit
+		
 	} //end registerListeners
 
 } //end ListenerRegistration class

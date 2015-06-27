@@ -1,10 +1,13 @@
 package io.github.mosestroyer.nations.playerActions;
 
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
+
+
 
 public class PlayerDAO {
 	
@@ -58,8 +61,10 @@ public class PlayerDAO {
 		ResultSet rs = stmt.executeQuery(SELECT_PLAYER_CLASS + "'" + id + "'");
 		
 		if(rs.next()){
+			
 			String ret = rs.getString("class");
 			stmt.close();
+			
 			return ret;
 		}
 		
@@ -68,16 +73,19 @@ public class PlayerDAO {
 	}//end getPlayerClass
 	
 	public static void setPlayerClass(Connection c, UUID id, String className) throws SQLException{
-		Statement stmt = c.createStatement();
+		Statement stmt = c.createStatement(); //create a statement to add to the database
 		
-		if(getPlayerClass(c, id).equals("")){
+		
+		if(getPlayerClass(c, id).equals("")){ //get player class if they have none
 			stmt.executeUpdate(INSERT_PLAYER_CLASS + "('" + id + "', '" + className + "')");
-		}else{
+		}else{ //if they do have one, update the player class
+			
 			stmt.executeUpdate("UPDATE PLAYERS SET class = '" + className + "' WHERE id = '" + id + "' " );
 		}
 		
 		
 		stmt.close();
 	}
+	
 	
 } //end PlayerDAO class
