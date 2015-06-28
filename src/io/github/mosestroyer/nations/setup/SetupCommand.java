@@ -2,14 +2,15 @@ package io.github.mosestroyer.nations.setup;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import io.github.mosestroyer.nations.Nations;
 import io.github.mosestroyer.nations.nation.Nation;
 import io.github.mosestroyer.nations.nation.NationDAO;
+import io.github.mosestroyer.nations.nation.Pedestal;
 import io.github.mosestroyer.nations.util.DatabaseConnection;
 import io.github.mosestroyer.nations.util.HelperFunctions;
 
-import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -20,12 +21,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Horse.Color;
 import org.bukkit.material.Wool;
 
 public class SetupCommand implements CommandExecutor {
 	
 	private final Nations nations;
+	private final int CENTER = 4;
 	
 	public SetupCommand(Nations nations){
 		this.nations = nations;
@@ -73,9 +74,14 @@ public class SetupCommand implements CommandExecutor {
 	} //end createNationsBoard
 	
 	private boolean createPedestal(CommandSender sender, Command command, String label, String[] args, Nations nations){
+		
+		Connection c = null;
+		
 		try {
 			
-			removePedestal(sender, command, label, args, nations);
+			try {
+				removePedestal(sender, command, label, args, nations);
+			} catch (Exception e) {}
 			
 			Location loc = ((Player) sender).getLocation();
 			World world = loc.getWorld();
@@ -86,7 +92,7 @@ public class SetupCommand implements CommandExecutor {
 				return true;
 			}
 			
-			Connection c = DatabaseConnection.getConnection();
+			c = DatabaseConnection.getConnection();
 			
 			int xMin = loc.getBlockX() - 3;
 			int yMin = loc.getBlockY() - 3;
@@ -95,10 +101,9 @@ public class SetupCommand implements CommandExecutor {
 			int x;
 			int y = yMin;
 			int z;
-			
-			int xMax;
-			int yMax;
-			int zMax;
+
+			Pedestal pedestal;
+			int position = 0;
 			
 			//bottom base
 			for(x = xMin; x < xMin + 7; x++){
@@ -113,8 +118,16 @@ public class SetupCommand implements CommandExecutor {
 			for(x = xMin + 1; x < xMin + 7; x +=2){
 				for(z = zMin + 1; z < zMin + 7; z +=2){
 					Block currentBlock = world.getBlockAt(x, y, z);
-					//db - add block x y+1 z
+					pedestal = new Pedestal(nationName, position, x, y + 1, z, "");
+					if(position == CENTER){
+						pedestal.setFlag(NationDAO.getColorByName(c, nationName));
+						SetupDAO.insertFlagPosition(c, pedestal);
+					}
+					else {
+						SetupDAO.insertFlagPosition(c, pedestal);
+					}
 					currentBlock.setType(Material.BEDROCK);
+					position++;
 				}
 			}
 			
@@ -135,34 +148,118 @@ public class SetupCommand implements CommandExecutor {
 			HelperFunctions.sendSenderMessage(nations, sender, "Failed to create pedestal!");
 			nations.getLogger().info(e.getMessage());
 			return false;
+		} finally {
+			try {
+				DatabaseConnection.closeConnection(c);
+			} catch (Exception e) {
+				HelperFunctions.sendSenderMessage(nations, sender, "Failed to close database connection after attempting to create pedestal!");
+				nations.getLogger().info(e.getMessage());
+			}
 		}
 		
-		
-		//TODO (moses)
-		//Remove Prior pedestal if exists
-		
-		//TODO (moses)
-		//Create New Pedestal under feet
-		
-		//TODO (moses)
-		//Register Pedestal positions in DB
 	} //end createPedestal
 	
 	private boolean removePedestal(CommandSender sender, Command command, String label, String[] args, Nations nations){
+		
+		Connection c = null;
+		
 		try {
+			
+			Location loc = ((Player) sender).getLocation();
+			World world = loc.getWorld();
+			String nationName = args[0];
+			List<Pedestal> enemyFlags;
+			
+			c = DatabaseConnection.getConnection();
+				
+			Pedestal pedestal = NationDAO.getPedestal(c, nationName, CENTER);
+			
+			if(pedestal == null)
+				return true;
+			
 			//TODO remove physical blocks
+			int xMin = pedestal.getX() - 3;
+			int yMin = pedestal.getY() - 2;
+			int zMin = pedestal.getZ() - 3;
 			
-			//TODO
-			//remove DB references
+			int x;
+			int y = yMin;
+			int z;
 			
-			//TODO
-			//remove flags from other nations
-			//DONT FORGET THIS IN REMOVE NATIONS
+			Block currentBlock;
+			
+			//bottom base
+			for(x = xMin; x < xMin + 7; x++){
+				for(z = zMin; z < zMin + 7; z++){
+					currentBlock = world.getBlockAt(x, y, z);
+					currentBlock.setType(Material.AIR);
+				}
+			}
+			
+			//stands
+			y++;
+			for(x = xMin + 1; x < xMin + 7; x +=2){
+				for(z = zMin + 1; z < zMin + 7; z +=2){
+					currentBlock = world.getBlockAt(x, y, z);
+					currentBlock.setType(Material.AIR);
+					currentBlock = world.getBlockAt(x, y + 1, z);
+					currentBlock.setType(Material.AIR);
+				}
+			}
+			
+			pedestal = NationDAO.findFlag(c, NationDAO.getColorByName(c, nationName));
+			
+			if(pedestal != null) {	
+				
+				sender.sendMessage("Found the flag!");
+				
+				currentBlock = world.getBlockAt(pedestal.getX(), pedestal.getY(), pedestal.getZ());
+				currentBlock.setType(Material.AIR);
+			}	
+			
+			enemyFlags = NationDAO.getPedestalPositions(c, nationName);
+			
+			for(Pedestal enemyFlag : enemyFlags){
+				if(enemyFlag.getPosition() != CENTER && !enemyFlag.getFlag().equals("")){
+					
+					String enemyNation = NationDAO.getNameByColor(c, enemyFlag.getFlag());
+					
+					sender.sendMessage("Returning flag!");
+	
+					NationDAO.placeFlag(c, enemyFlag.getName(), enemyFlag.getPosition(), "");
+					
+					NationDAO.placeFlag(c, enemyNation, CENTER, enemyFlag.getFlag());
+					
+					pedestal = NationDAO.getPedestal(c, enemyNation, CENTER);
+					
+					currentBlock = world.getBlockAt(pedestal.getX(), pedestal.getY(), pedestal.getZ());
+					currentBlock.setType(Material.WOOL);
+					
+					BlockState bs = currentBlock.getState();
+					Wool woolmat = (Wool) bs.getData();
+					woolmat.setColor(DyeColor.valueOf(enemyFlag.getFlag()));
+					bs.setData(woolmat);
+					bs.update();
+					
+				}
+			}
+			
+			//Make flags go away in db
+			
+			SetupDAO.removePedestals(c, nationName);
 			
 			return false;
 		} catch (Exception e){
 			HelperFunctions.sendSenderMessage(nations, sender, "Failed to remove pedestal!");
+			nations.getLogger().info(e.getMessage());
 			return false;
+		} finally {
+			try {
+				DatabaseConnection.closeConnection(c);
+			} catch (Exception e) {
+				HelperFunctions.sendSenderMessage(nations, sender, "Failed to close database connection after attempting to remove pedestal!");
+				nations.getLogger().info(e.getMessage());
+			}
 		}
 		
 	} //end removePedestal
@@ -221,6 +318,8 @@ public class SetupCommand implements CommandExecutor {
 	
 	private boolean removeNation(CommandSender sender, Command command, String label, String[] args, Nations nations) throws SQLException {
 		Connection c = DatabaseConnection.getConnection();
+		
+		removePedestal(sender, command, label, args, nations);
 		
 		SetupDAO.removeNation(c, args[0]);
 		
