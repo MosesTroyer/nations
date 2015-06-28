@@ -6,10 +6,4 @@ public class Archer extends CharacterClass{
 		return "archer";
 		
 	}
-
-	@Override
-	public void listen() {
-		// TODO Auto-generated method stub
-		
-	}
 }

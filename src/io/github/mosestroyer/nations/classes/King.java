@@ -7,9 +7,4 @@ public class King extends CharacterClass{
 		
 	}
 
-	@Override
-	public void listen() {
-		// TODO Auto-generated method stub
-		
-	}
 }

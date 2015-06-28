@@ -7,9 +7,4 @@ public class Alchemist extends CharacterClass{
 		
 	}
 
-	@Override
-	public void listen() {
-		// TODO Auto-generated method stub
-		
-	}
 }

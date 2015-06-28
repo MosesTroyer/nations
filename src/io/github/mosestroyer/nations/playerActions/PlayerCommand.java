@@ -129,8 +129,6 @@ public class PlayerCommand  implements CommandExecutor {
 	public boolean setPlayerClass(CommandSender s, Command cmd, String l, String[] args){
 		
 		
-		
-		
 		//had to use the depreciated thing to get player name from string..
 		//Hopefully this doesn't come back to bite.
 		@SuppressWarnings("deprecation")
