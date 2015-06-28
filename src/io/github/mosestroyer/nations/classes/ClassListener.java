@@ -133,5 +133,7 @@ public class ClassListener implements Listener{
 			}
 		}
 		
+		c.close();
+		
 	}
 }
