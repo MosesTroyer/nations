@@ -1,6 +1,7 @@
 package io.github.mosestroyer.nations.util;
 
 import io.github.mosestroyer.nations.Nations;
+import io.github.mosestroyer.nations.classes.ClassListener;
 import io.github.mosestroyer.nations.playerActions.PlayerListener;
 import io.github.mosestroyer.nations.spells.SpellsListener;
 
@@ -12,6 +13,9 @@ public class ListenerRegistration {
 		
 		//Spells Listener
 		nations.getServer().getPluginManager().registerEvents(new SpellsListener(nations), nations);
+		
+		//Class Listeners
+		nations.getServer().getPluginManager().registerEvents(new ClassListener(nations), nations);
 		
 	} //end registerListeners
 

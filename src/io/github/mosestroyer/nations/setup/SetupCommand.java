@@ -105,6 +105,11 @@ public class SetupCommand implements CommandExecutor {
 			Pedestal pedestal;
 			int position = 0;
 			
+
+//			int xMax;
+//			int yMax;
+//			int zMax;
+			
 			//bottom base
 			for(x = xMin; x < xMin + 7; x++){
 				for(z = zMin; z < zMin + 7; z++){

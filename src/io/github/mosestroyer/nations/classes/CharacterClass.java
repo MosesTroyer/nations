@@ -1,5 +1,8 @@
 package io.github.mosestroyer.nations.classes;
 
-public class CharacterClass {
 
+public abstract class CharacterClass{
+
+	public abstract String getName();
+	
 }

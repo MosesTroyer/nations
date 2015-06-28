@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 import io.github.mosestroyer.nations.Nations;
+import io.github.mosestroyer.nations.classes.AvailableClasses;
+import io.github.mosestroyer.nations.classes.CharacterClass;
 import io.github.mosestroyer.nations.nation.Nation;
 import io.github.mosestroyer.nations.nation.NationDAO;
 import io.github.mosestroyer.nations.util.DatabaseConnection;
@@ -19,6 +21,7 @@ import org.bukkit.entity.Player;
 public class PlayerCommand  implements CommandExecutor {
 	
 	private final Nations nations;
+	private static AvailableClasses classes = new AvailableClasses();
 	
 	public PlayerCommand(Nations nations){
 		this.nations = nations;
@@ -42,6 +45,7 @@ public class PlayerCommand  implements CommandExecutor {
 			//classes stuff
 			if(command.getName().equalsIgnoreCase("setClass")){
 				if(HelperFunctions.commandCheck(sender, command, label, args, nations, 2, false, false)){
+					//calls setPlayerClass with arguments sender (player issuing command), command, label, and arguments
 					return setPlayerClass(sender, command, label, args);
 				}
 			}
@@ -129,16 +133,30 @@ public class PlayerCommand  implements CommandExecutor {
 		//Hopefully this doesn't come back to bite.
 		@SuppressWarnings("deprecation")
 		Player p = nations.getServer().getPlayer(args[0]);
-		try{
-			Connection c = DatabaseConnection.getConnection();
-			
-			PlayerDAO.setPlayerClass(c, p.getUniqueId(), args[1]);
-			s.sendMessage("Set " + p.getPlayerListName() + "'s class to " + args[1]);
-			p.sendMessage("Your class was changed to " + args[1]);
 		
-			c.close();
+		try{
+			Connection c = DatabaseConnection.getConnection(); //set the connection to the database
+			
+			CharacterClass[] theClasses = classes.getClasses();
+			
+			for(int i=0; i<theClasses.length; i++){
+				if( args[1].toLowerCase().equals( theClasses[i].getName() ) ){
+					//calls setPlayerClass in PlayerDAO
+					PlayerDAO.setPlayerClass(c, p.getUniqueId(), args[1].toLowerCase());
+					
+					s.sendMessage("Set " + p.getPlayerListName() + "'s class to " + args[1]); //tell command issuer it worked
+					p.sendMessage("Your class was changed to " + args[1]); //tell the person their class has been changed
+					
+					c.close(); //close connection
+					return true;
+				}
+			}
+			
+			c.close(); //close connection
+			throw new Exception("Not a valid class name");
+			
 		} catch (Exception e){
-			s.sendMessage("Failed to set class: " + e.getMessage());
+			s.sendMessage("Failed to set class: " + e.getMessage()); //Sends message to issuer if an error is encountered.
 		}
 		return false;
 	} //end setPlayerClass
