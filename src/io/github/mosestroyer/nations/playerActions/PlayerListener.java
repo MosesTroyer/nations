@@ -6,7 +6,6 @@ import java.util.List;
 import io.github.mosestroyer.nations.nation.NationDAO;
 import io.github.mosestroyer.nations.nation.Pedestal;
 import io.github.mosestroyer.nations.util.DatabaseConnection;
-import io.github.mosestroyer.nations.util.HelperFunctions;
 
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
@@ -38,15 +37,27 @@ public class PlayerListener implements Listener {
 		
 		if(event.getAction() == Action.LEFT_CLICK_BLOCK) {
 			
+			if(event.getClickedBlock() == null) {
+				event.setCancelled(true);
+				return;
+			}
+			
 			//Check for capturing flag
 			Player player = event.getPlayer();
 			
 			if(event.getClickedBlock().getType().equals(Material.WOOL)) {
+				
+				Connection c = null;
 				try {
 					
 					Location location = event.getClickedBlock().getLocation();
 					
-					Connection c = DatabaseConnection.getConnection();
+					try {
+						c = DatabaseConnection.getConnection();
+					} catch (Exception e){
+						player.sendMessage(e.getMessage());
+						return;
+					}
 					
 					Pedestal pedestal = NationDAO.getPedestalByPosition(c, location.getBlockX(), location.getBlockY(), location.getBlockZ());
 					
@@ -54,17 +65,45 @@ public class PlayerListener implements Listener {
 						
 						//If the flag is team color and on an enemy pedestal
 						String nationName = PlayerDAO.getPlayerNation(c, player.getUniqueId());
+						if(nationName == ""){
+							event.setCancelled(true);
+							c.close();
+							return;
+						}
 						if(!pedestal.getName().equals(nationName) && pedestal.getFlag().equals(NationDAO.getColorByName(c, nationName))){
-							player.sendMessage("Your flag, enemy pedestal!");
+							
+							Pedestal centerPedestal = NationDAO.getPedestal(c, nationName, CENTER);
+							
+							Location loc = player.getLocation();
+							World world = loc.getWorld();
+							
+							Block currentBlock = world.getBlockAt(centerPedestal.getX(), centerPedestal.getY(), centerPedestal.getZ());
+							currentBlock.setType(Material.WOOL);
+							
+							BlockState bs = currentBlock.getState();
+							Wool woolmat = (Wool) bs.getData();
+							woolmat.setColor(DyeColor.valueOf(pedestal.getFlag()));
+							bs.setData(woolmat);
+							bs.update();
+							
+							NationDAO.placeFlag(c, centerPedestal.getName(), centerPedestal.getPosition(), pedestal.getFlag());
+							
+							currentBlock = world.getBlockAt(pedestal.getX(), pedestal.getY(), pedestal.getZ());
+							currentBlock.setType(Material.AIR);
+							
+							NationDAO.placeFlag(c, pedestal.getName(), pedestal.getPosition(), "");
+							
+							player.sendMessage("You recovered your nation's flag!");
+							
+							c.close();
+							return;
 						} 
 						//if the flag is an enemy color and on an enemy pedestal
 						else if (!pedestal.getName().equals(nationName) && !pedestal.getFlag().equals(NationDAO.getColorByName(c, nationName))) {
-							player.sendMessage("Not your flag, enemy pedestal!");
 							
 							List<Pedestal> pedestals = NationDAO.getPedestalPositions(c, nationName);
 							
 							for(Pedestal p : pedestals) {
-								player.sendMessage("Searching");
 								if(p.getFlag().equals("") && p.getPosition() != CENTER){
 									
 									Location loc = player.getLocation();
@@ -79,8 +118,6 @@ public class PlayerListener implements Listener {
 									bs.setData(woolmat);
 									bs.update();
 									
-									player.sendMessage(p.getFlag());
-									
 									NationDAO.placeFlag(c, p.getName(), p.getPosition(), pedestal.getFlag());
 									
 									currentBlock = world.getBlockAt(pedestal.getX(), pedestal.getY(), pedestal.getZ());
@@ -88,9 +125,9 @@ public class PlayerListener implements Listener {
 									
 									NationDAO.placeFlag(c, pedestal.getName(), pedestal.getPosition(), "");
 									
-									player.sendMessage("You captured the flag of " + pedestal.getName() + "!");
+									player.sendMessage("You captured the flag from " + pedestal.getName() + "!");
 									
-									DatabaseConnection.closeConnection(c);
+									c.close();
 									return;
 								}
 							}
@@ -101,10 +138,13 @@ public class PlayerListener implements Listener {
 						
 					}
 					
-					DatabaseConnection.closeConnection(c);
+					c.close();
 				} catch (Exception e) {
 					player.sendMessage("Failed to capture wool");
 					player.sendMessage(e.getMessage());
+					try {
+						c.close();
+					} catch (Exception ex) {}
 				}
 				
 			}

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import io.github.mosestroyer.nations.Nations;
+import io.github.mosestroyer.nations.nation.ChestPedestal;
 import io.github.mosestroyer.nations.nation.Nation;
 import io.github.mosestroyer.nations.nation.NationDAO;
 import io.github.mosestroyer.nations.nation.Pedestal;
@@ -16,12 +17,23 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.material.Chest;
 import org.bukkit.material.Wool;
+
+import com.sk89q.worldedit.BlockVector;
+import com.sk89q.worldguard.bukkit.WGBukkit;
+import com.sk89q.worldguard.bukkit.RegionContainer;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.flags.DefaultFlag;
+import com.sk89q.worldguard.protection.flags.StateFlag;
+import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 
 public class SetupCommand implements CommandExecutor {
 	
@@ -36,6 +48,9 @@ public class SetupCommand implements CommandExecutor {
 		
 		try {
 		
+			if(sender instanceof Player && !((Player)sender).isOp())
+				return true;
+			
 			if(command.getName().equalsIgnoreCase("createNationsBoard")){
 				if(HelperFunctions.commandCheck(sender, command, label, args, nations, -1, true, false))
 					return createNationsBoard(sender, command, label, args);
@@ -94,13 +109,35 @@ public class SetupCommand implements CommandExecutor {
 			
 			c = DatabaseConnection.getConnection();
 			
-			int xMin = loc.getBlockX() - 3;
-			int yMin = loc.getBlockY() - 3;
-			int zMin = loc.getBlockZ() - 3;
+			WorldGuardPlugin worldGuard = WGBukkit.getPlugin();
+			
+			RegionContainer container = worldGuard.getRegionContainer();
+			RegionManager regions = container.get(world);
+			
+			int xMin = loc.getBlockX() - 5;
+			int yMin = loc.getBlockY() - 4;
+			int zMin = loc.getBlockZ() - 5;
+			
+			BlockVector corner1 = new BlockVector(xMin, yMin, zMin);
+			BlockVector corner2 = new BlockVector(loc.getBlockX() + 5, loc.getBlockY() + 4, loc.getBlockZ() + 5);
 			
 			int x;
 			int y = yMin;
 			int z;
+			
+			//bottom stone
+			for(x = xMin; x < xMin + 11; x++){
+				for(z = zMin; z < zMin + 11; z++){
+					Block currentBlock = world.getBlockAt(x, y, z);
+					currentBlock.setType(Material.STONE);
+				}
+			}
+
+			xMin = loc.getBlockX() - 3;
+			yMin = loc.getBlockY() - 3;
+			zMin = loc.getBlockZ() - 3;
+			
+			y = yMin;
 
 			Pedestal pedestal;
 			int position = 0;
@@ -146,6 +183,93 @@ public class SetupCommand implements CommandExecutor {
 			bs.setData(woolmat);
 			bs.update();
 			
+			//chests NOT USING A FOR LOOP BECAUSE I'M FEELIN LAZY
+			position = 0;
+			
+			x = loc.getBlockX();
+			y = loc.getBlockY() - 3;
+			z = loc.getBlockZ() - 4;
+				
+			currentBlock = world.getBlockAt(x, y, z);
+			currentBlock.setType(Material.CHEST);
+			
+			bs = currentBlock.getState();
+			Chest chest = (Chest) currentBlock.getState().getData();
+			chest.setFacingDirection(BlockFace.NORTH);
+			bs.setData(chest);
+			bs.update();
+			
+			SetupDAO.insertChestPosition(c, new ChestPedestal(nationName, position++, x, y, z));
+
+			x = loc.getBlockX() + 4;
+			y = loc.getBlockY() - 3;
+			z = loc.getBlockZ();
+				
+			currentBlock = world.getBlockAt(x, y, z);
+			currentBlock.setType(Material.CHEST);
+			
+			bs = currentBlock.getState();
+			chest = (Chest) currentBlock.getState().getData();
+			chest.setFacingDirection(BlockFace.EAST);
+			bs.setData(chest);
+			bs.update();
+			
+			SetupDAO.insertChestPosition(c, new ChestPedestal(nationName, position++, x, y, z));
+			
+			x = loc.getBlockX();
+			y = loc.getBlockY() - 3;
+			z = loc.getBlockZ() + 4;
+				
+			currentBlock = world.getBlockAt(x, y, z);
+			currentBlock.setType(Material.CHEST);
+			
+			bs = currentBlock.getState();
+			chest = (Chest) currentBlock.getState().getData();
+			chest.setFacingDirection(BlockFace.SOUTH);
+			bs.setData(chest);
+			bs.update();
+			
+			SetupDAO.insertChestPosition(c, new ChestPedestal(nationName, position++, x, y, z));
+			
+			x = loc.getBlockX() - 4;
+			y = loc.getBlockY() - 3;
+			z = loc.getBlockZ();
+				
+			currentBlock = world.getBlockAt(x, y, z);
+			currentBlock.setType(Material.CHEST);
+			
+			bs = currentBlock.getState();
+			chest = (Chest) currentBlock.getState().getData();
+			chest.setFacingDirection(BlockFace.WEST);
+			bs.setData(chest);
+			bs.update();
+			
+			SetupDAO.insertChestPosition(c, new ChestPedestal(nationName, position++, x, y, z));
+			
+			ProtectedCuboidRegion region = new ProtectedCuboidRegion(nationName, corner1, corner2);
+			
+			region.setPriority(100);
+			
+			region.setFlag(DefaultFlag.BUILD, StateFlag.State.DENY);
+			region.setFlag(DefaultFlag.MOB_SPAWNING, StateFlag.State.DENY);
+			region.setFlag(DefaultFlag.CREEPER_EXPLOSION, StateFlag.State.DENY);
+			region.setFlag(DefaultFlag.OTHER_EXPLOSION, StateFlag.State.DENY);
+			//enderman grief
+			//region.setFlag(DefaultFlag.enderman-greif, StateFlag.State.DENY);
+			region.setFlag(DefaultFlag.GHAST_FIREBALL, StateFlag.State.DENY);
+			region.setFlag(DefaultFlag.TNT, StateFlag.State.DENY);
+			region.setFlag(DefaultFlag.LIGHTER, StateFlag.State.DENY);
+			region.setFlag(DefaultFlag.FIRE_SPREAD, StateFlag.State.DENY);
+			region.setFlag(DefaultFlag.LAVA_FIRE, StateFlag.State.DENY);
+			region.setFlag(DefaultFlag.LIGHTNING, StateFlag.State.DENY);
+			region.setFlag(DefaultFlag.PISTONS, StateFlag.State.DENY);
+			region.setFlag(DefaultFlag.WATER_FLOW, StateFlag.State.DENY);
+			region.setFlag(DefaultFlag.LAVA_FLOW, StateFlag.State.DENY);
+			region.setFlag(DefaultFlag.DENY_MESSAGE, "");
+			region.setFlag(DefaultFlag.CHEST_ACCESS, StateFlag.State.ALLOW);
+			
+			regions.addRegion(region);
+			
 			DatabaseConnection.closeConnection(c);
 			
 			return true;
@@ -182,20 +306,39 @@ public class SetupCommand implements CommandExecutor {
 			if(pedestal == null)
 				return true;
 			
-			//TODO remove physical blocks
-			int xMin = pedestal.getX() - 3;
-			int yMin = pedestal.getY() - 2;
-			int zMin = pedestal.getZ() - 3;
+			WorldGuardPlugin worldGuard = WGBukkit.getPlugin();
+			
+			RegionContainer container = worldGuard.getRegionContainer();
+			RegionManager regions = container.get(world);
+			regions.removeRegion(nationName);
+
+			int xMin = loc.getBlockX() - 5;
+			int yMin = loc.getBlockY() - 3;
+			int zMin = loc.getBlockZ() - 5;
 			
 			int x;
 			int y = yMin;
 			int z;
 			
+			//bottom stone
+			for(x = xMin; x < xMin + 11; x++){
+				for(z = zMin; z < zMin + 11; z++){
+					Block currentBlock = world.getBlockAt(x, y, z);
+					currentBlock.setType(Material.AIR);
+				}
+			}
+
+			xMin = pedestal.getX() - 4;
+			yMin = pedestal.getY() - 2;
+			zMin = pedestal.getZ() - 4;
+				
+			y = yMin;
+			
 			Block currentBlock;
 			
 			//bottom base
-			for(x = xMin; x < xMin + 7; x++){
-				for(z = zMin; z < zMin + 7; z++){
+			for(x = xMin; x < xMin + 9; x++){
+				for(z = zMin; z < zMin + 9; z++){
 					currentBlock = world.getBlockAt(x, y, z);
 					currentBlock.setType(Material.AIR);
 				}
@@ -203,8 +346,8 @@ public class SetupCommand implements CommandExecutor {
 			
 			//stands
 			y++;
-			for(x = xMin + 1; x < xMin + 7; x +=2){
-				for(z = zMin + 1; z < zMin + 7; z +=2){
+			for(x = xMin + 1; x < xMin + 7; x++){
+				for(z = zMin + 1; z < zMin + 7; z++){
 					currentBlock = world.getBlockAt(x, y, z);
 					currentBlock.setType(Material.AIR);
 					currentBlock = world.getBlockAt(x, y + 1, z);
@@ -216,10 +359,11 @@ public class SetupCommand implements CommandExecutor {
 			
 			if(pedestal != null) {	
 				
-				sender.sendMessage("Found the flag!");
-				
 				currentBlock = world.getBlockAt(pedestal.getX(), pedestal.getY(), pedestal.getZ());
 				currentBlock.setType(Material.AIR);
+				
+				NationDAO.placeFlag(c, pedestal.getName(), pedestal.getPosition(), "");
+				
 			}	
 			
 			enemyFlags = NationDAO.getPedestalPositions(c, nationName);
@@ -228,9 +372,7 @@ public class SetupCommand implements CommandExecutor {
 				if(enemyFlag.getPosition() != CENTER && !enemyFlag.getFlag().equals("")){
 					
 					String enemyNation = NationDAO.getNameByColor(c, enemyFlag.getFlag());
-					
-					sender.sendMessage("Returning flag!");
-	
+
 					NationDAO.placeFlag(c, enemyFlag.getName(), enemyFlag.getPosition(), "");
 					
 					NationDAO.placeFlag(c, enemyNation, CENTER, enemyFlag.getFlag());
@@ -248,8 +390,6 @@ public class SetupCommand implements CommandExecutor {
 					
 				}
 			}
-			
-			//Make flags go away in db
 			
 			SetupDAO.removePedestals(c, nationName);
 			

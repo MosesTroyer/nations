@@ -1,5 +1,6 @@
 package io.github.mosestroyer.nations.setup;
 
+import io.github.mosestroyer.nations.nation.ChestPedestal;
 import io.github.mosestroyer.nations.nation.NationDAO;
 import io.github.mosestroyer.nations.nation.Pedestal;
 
@@ -13,9 +14,13 @@ public class SetupDAO {
 	
 	private static String INSERT_PEDESTAL = "INSERT INTO pedestals (name, position, x, y, z, flag) VALUES ";
 	
+	private static String INSERT_CHEST = "INSERT INTO chests (name, position, x, y, z) VALUES ";
+	
 	private static String DELETE_NATION_FROM_NATIONSCOLOR = "DELETE FROM nationsColor ";
 	
 	private static String DELETE_NATION_FROM_PEDESTALS = "DELETE FROM pedestals ";
+	
+	private static String DELETE_NATION_FROM_CHESTS = "DELETE FROM chests ";
 	
 	private static String WHERE_NAME = "WHERE name = ";
 	
@@ -34,6 +39,9 @@ public class SetupDAO {
 		sql = "CREATE TABLE IF NOT EXISTS pedestals (name TEXT, position INTEGER, x INTEGER, y INTEGER, z INTEGER, flag TEXT)";
 		stmt.executeUpdate(sql);
 		
+		sql = "CREATE TABLE IF NOT EXISTS chests (name TEXT, position INTEGER, x INTEGER, y INTEGER, z INTEGER)";
+		stmt.executeUpdate(sql);
+	
 		stmt.close();
 		
 	} //end checkForTables
@@ -55,7 +63,7 @@ public class SetupDAO {
 		stmt.executeUpdate(DELETE_NATION_FROM_NATIONSCOLOR + WHERE_NAME + "'" + name + "'");
 		
 		stmt.executeUpdate(DELETE_NATION_FROM_NATIONSCOLOR + WHERE_FLAG + "'" + flag + "'");
-		
+
 		removePedestals(c, name);
 		
 		//REMOVE FROM ALL TABLES HERE
@@ -66,6 +74,7 @@ public class SetupDAO {
 		Statement stmt = c.createStatement();
 		
 		stmt.executeUpdate(DELETE_NATION_FROM_PEDESTALS + WHERE_NAME + "'" + name + "'");
+		stmt.executeUpdate(DELETE_NATION_FROM_CHESTS + WHERE_NAME + "'" + name + "'");
 		
 		stmt.close();
 	} //end removePedestals
@@ -77,5 +86,13 @@ public class SetupDAO {
 		
 		stmt.close();
 	} //end insertFlagPosition
+	
+	public static void insertChestPosition(Connection c, ChestPedestal chestPedestal) throws SQLException {
+		Statement stmt = c.createStatement();
+		
+		stmt.executeUpdate(INSERT_CHEST + "('" + chestPedestal.getName() + "', '" + chestPedestal.getPosition() + "', '" + chestPedestal.getX() + "', '" + chestPedestal.getY() +"', '" + chestPedestal.getZ() + "')");
+		
+		stmt.close();
+	} //end insertChestPosition
 	
 } //end SetupDAO class

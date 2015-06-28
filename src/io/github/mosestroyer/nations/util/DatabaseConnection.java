@@ -13,7 +13,9 @@ public class DatabaseConnection {
 		      c = DriverManager.getConnection("jdbc:sqlite:nations.db");
 		      		      
 		      return c;
-		} catch ( Exception e ) {}
+		} catch ( ClassNotFoundException e ) {
+			
+		}
 		
 		throw new SQLException();
 	} //end getConnection

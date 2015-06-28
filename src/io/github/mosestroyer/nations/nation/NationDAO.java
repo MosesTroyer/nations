@@ -7,20 +7,22 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.entity.Player;
-
 public class NationDAO {
 	
 	private final static String SELECT_NATION = "SELECT * FROM nationsColor ";
 	private final static String SELECT_COLOR = "SELECT color FROM nationsColor ";
 	private final static String SELECT_PEDESTAL = "SELECT * FROM pedestals ";
+	private final static String SELECT_CHEST_PEDESTAL = "SELECT * FROM chests ";
+	private final static String SELECT_FLAG_COUNT = "SELECT COUNT(*) FROM pedestals ";
 	private final static String UPDATE_PEDESTAL = "UPDATE pedestals SET flag = ";
 	private final static String WHERE_NAME = "WHERE name = ";
 	private final static String WHERE_FLAG = "WHERE flag = ";
 	private final static String WHERE_COLOR = "WHERE color = ";
+	private final static String WHERE_POSITION = "WHERE position = ";
 	private final static String WHERE_X = "WHERE x = ";
 	private final static String AND_Y = " AND y = ";
 	private final static String AND_Z = " AND z = ";
+	private final static String AND_FLAG_NOT_EQUALS_NULL = " AND FLAG <> \"\"";
 	
 	private final static String AND_POSITION = " AND position = ";
 
@@ -62,9 +64,12 @@ public class NationDAO {
 		ResultSet rs = stmt.executeQuery(SELECT_COLOR + WHERE_NAME + "'" + name + "'");
 		
 		if(rs.next()){
-			return rs.getString("color");
+			String ret = rs.getString("color");
+			stmt.close();
+			return ret;
 		}
 		
+		stmt.close();
 		throw new SQLException("Nation does not exist!");
 	} //end getColorByName
 	
@@ -73,9 +78,12 @@ public class NationDAO {
 		ResultSet rs = stmt.executeQuery(SELECT_NATION + WHERE_COLOR + "'" + color + "'");
 		
 		if(rs.next()){
-			return rs.getString("name");
+			String ret = rs.getString("name");
+			stmt.close();
+			return ret;
 		}
 		
+		stmt.close();
 		throw new SQLException("Nation does not exist!");
 	} //end getNameByColor
 	
@@ -84,9 +92,12 @@ public class NationDAO {
 		ResultSet rs = stmt.executeQuery(SELECT_PEDESTAL + WHERE_NAME + "'" + name + "'" + AND_POSITION + "'" + position + "'");
 		
 		if(rs.next()){
-			return new Pedestal(rs.getString("name"), rs.getInt("position"), rs.getInt("x"), rs.getInt("y"), rs.getInt("z"), rs.getString("flag"));
+			Pedestal ret = new Pedestal(rs.getString("name"), rs.getInt("position"), rs.getInt("x"), rs.getInt("y"), rs.getInt("z"), rs.getString("flag"));
+			stmt.close();
+			return ret;
 		}
 		
+		stmt.close();
 		return null;
 	} //end getPedestal
 	
@@ -101,6 +112,7 @@ public class NationDAO {
 			pedestals.add(new Pedestal(rs.getString("name"), rs.getInt("position"), rs.getInt("x"), rs.getInt("y"), rs.getInt("z"), rs.getString("flag")));
 		}
 		
+		stmt.close();
 		return pedestals;	
 	} //end getPedestalPositions
 
@@ -140,6 +152,28 @@ public class NationDAO {
 		return null;
 	} //end getPedestalByPosition
 	
+	public static List<ChestPedestal> getChestPedestalsByPosition(Connection c, int position) throws SQLException {
+		Statement stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery(SELECT_CHEST_PEDESTAL + WHERE_POSITION + position);
+		
+		List<ChestPedestal> chests = new ArrayList<ChestPedestal>();
+		
+		while(rs.next()){
+			chests.add(new ChestPedestal(rs.getString("name"), rs.getInt("position"), rs.getInt("x"), rs.getInt("y"), rs.getInt("z")));
+		}
+		
+		stmt.close();
+		return chests;	
+	} //return getChestPedestalsByPosition
 
+	public static int getFlagCount(Connection c, String name) throws SQLException {
+		Statement stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery(SELECT_FLAG_COUNT + WHERE_NAME + "'" + name + "'" + AND_FLAG_NOT_EQUALS_NULL); 
+		
+		int ret = rs.getInt("COUNT(*)");
+		
+		stmt.close();
+		return ret;
+	} //end getFlagCount
 	
 } //end NationDAO class

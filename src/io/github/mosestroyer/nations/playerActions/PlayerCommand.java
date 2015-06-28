@@ -41,6 +41,8 @@ public class PlayerCommand  implements CommandExecutor {
 					return leaveNation(sender, command, label, args);
 			}
 			
+			if(sender instanceof Player && !((Player) sender).isOp())
+				return true;
 			
 			//classes stuff
 			if(command.getName().equalsIgnoreCase("setClass")){

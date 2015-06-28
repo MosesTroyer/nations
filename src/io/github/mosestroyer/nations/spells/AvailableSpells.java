@@ -37,4 +37,18 @@ public class AvailableSpells {
 		sb[10] = new LightningStrike();
 		return sb; //returns the book
 	}
+	
+	public static Spellbook[] getApprovedSpells() {
+		sb = new Spellbook[9]; //Change depending on # of spells
+		sb[0] = new ArrowStorm();
+		sb[1] = new FireBall();
+		sb[2] = new GrowCrops();
+		sb[3] = new Heal();
+		sb[4] = new Suicide();
+		sb[5] = new TeleportSpawn();
+		sb[6] = new Transmute();
+		sb[7] = new WaterToLava();
+		sb[8] = new LightningStrike();
+		return sb; //returns the book
+	} //end getApprovedSpells
 }

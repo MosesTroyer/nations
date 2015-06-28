@@ -27,13 +27,13 @@ public class ClassListener implements Listener{
 		
 		Action a = e.getAction();
 		Player p = e.getPlayer();
-		Connection c = DatabaseConnection.getConnection();
-	
-		if(PlayerDAO.getPlayerClass(c, p.getUniqueId()).equals("acrobat") ){
-			if(a.){
-				//do acrobat stuff
-			}
-		}
+//		Connection c = DatabaseConnection.getConnection();
+//	
+//		if(PlayerDAO.getPlayerClass(c, p.getUniqueId()).equals("acrobat") ){
+//			if(a.){
+//				//do acrobat stuff
+//			}
+//		}
 		
 	}
 }

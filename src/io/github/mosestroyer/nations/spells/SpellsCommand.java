@@ -20,7 +20,7 @@ public class SpellsCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
 		if(sender instanceof Player){
-			if(command.getName().equalsIgnoreCase("givespellbook")){
+			if(((Player) sender).isOp() && command.getName().equalsIgnoreCase("givespellbook")){
 				GiveSpellbook gsp = new GiveSpellbook();
 				gsp.doSpell(((Player) sender), this.nations);
 			}
