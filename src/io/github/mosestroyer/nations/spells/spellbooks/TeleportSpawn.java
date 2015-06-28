@@ -28,7 +28,7 @@ public class TeleportSpawn extends Spellbook{
 	public boolean doSpell(Player p, Nations n){
 		
 		//change for when we have a real spawn, this is just where I spawned.
-		Location loc = new Location(p.getWorld(),-3040,34,1692);
+		Location loc = p.getWorld().getSpawnLocation();
 		p.teleport(loc);
 		
 		return true;
