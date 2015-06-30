@@ -1,6 +1,5 @@
 package io.github.mosestroyer.nations.spells.spellbooks;
 
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

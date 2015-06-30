@@ -1,13 +1,10 @@
 package io.github.mosestroyer.nations.playerActions;
 
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
-
-
 
 public class PlayerDAO {
 	
@@ -20,8 +17,6 @@ public class PlayerDAO {
 	private final static String SELECT_PLAYER_CLASS = "SELECT class FROM PLAYERS WHERE id = ";
 	
 	private final static String INSERT_PLAYER_CLASS = "INSERT INTO PLAYERS (id, class) VALUES ";
-	
-	
 	
 	public static String getPlayerNation(Connection c, UUID id) throws SQLException {
 		
@@ -53,7 +48,6 @@ public class PlayerDAO {
 	} //end leaveNation
 	
 	
-	
 	//TO ME: Change these when you actually have classes made so that it throws exception
 	//if invalid class, whatever, so that people don't have fake classes that do nothing.
 	public static String getPlayerClass(Connection c, UUID id) throws SQLException{
@@ -75,14 +69,12 @@ public class PlayerDAO {
 	public static void setPlayerClass(Connection c, UUID id, String className) throws SQLException{
 		Statement stmt = c.createStatement(); //create a statement to add to the database
 		
-		
 		if(getPlayerClass(c, id).equals("")){ //get player class if they have none
 			stmt.executeUpdate(INSERT_PLAYER_CLASS + "('" + id + "', '" + className + "')");
 		}else{ //if they do have one, update the player class
 			
 			stmt.executeUpdate("UPDATE PLAYERS SET class = '" + className + "' WHERE id = '" + id + "' " );
 		}
-		
 		
 		stmt.close();
 	}

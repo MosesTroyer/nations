@@ -6,5 +6,4 @@ public class Alchemist extends CharacterClass{
 		return "alchemist";
 		
 	}
-
 }

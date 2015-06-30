@@ -44,6 +44,7 @@ public class PlayerCommand  implements CommandExecutor {
 			if(sender instanceof Player && !((Player) sender).isOp())
 				return true;
 			
+			/*
 			//classes stuff
 			if(command.getName().equalsIgnoreCase("setClass")){
 				if(HelperFunctions.commandCheck(sender, command, label, args, nations, 2, false, false)){
@@ -51,8 +52,8 @@ public class PlayerCommand  implements CommandExecutor {
 					return setPlayerClass(sender, command, label, args);
 				}
 			}
-			
-			
+			*/
+
 		} catch (Exception e){
 			nations.getLogger().info(e.getMessage());
 		}
@@ -65,7 +66,7 @@ public class PlayerCommand  implements CommandExecutor {
 		
 		if(!(PlayerDAO.getPlayerNation(c, ((Player) sender).getUniqueId()).equals(""))){
 			sender.sendMessage("You are already in a nation!");
-			c.close();
+			DatabaseConnection.closeConnection(c);
 			return true;
 		}
 		
@@ -74,14 +75,14 @@ public class PlayerCommand  implements CommandExecutor {
 			if(n.getName().equals(args[0])){
 				PlayerDAO.setPlayerNation(c, ((Player) sender).getUniqueId(), args[0]);
 				setPlayerColor((Player) sender);
-				c.close();
+				DatabaseConnection.closeConnection(c);
 				sender.sendMessage(HelperFunctions.dyeColorToChatColor(n.getDyeColor()) + "Nation Joined!");
 				return true;
 			}
 		}
 		
 		sender.sendMessage("Nation does not exist!");
-		c.close();
+		DatabaseConnection.closeConnection(c);
 		return true;
 	} //end joinNation
 
@@ -90,20 +91,19 @@ public class PlayerCommand  implements CommandExecutor {
 		
 		if(PlayerDAO.getPlayerNation(c, ((Player) sender).getUniqueId()).equals("")){
 			sender.sendMessage("You are not in a nation!");
-			c.close();
+			DatabaseConnection.closeConnection(c);
 			return true;
 		}
 		
 		PlayerDAO.leaveNation(c, ((Player) sender).getUniqueId());
 		setPlayerColor((Player) sender);
 		
-		c.close();
+		DatabaseConnection.closeConnection(c);
 		sender.sendMessage("You left your nation!");
 		return true;
 	} //end leaveNation
 	
 	public static void setPlayerColor(Player player){
-
 		String name = ChatColor.stripColor(player.getDisplayName());
 		UUID id = player.getUniqueId();
 		
@@ -129,8 +129,7 @@ public class PlayerCommand  implements CommandExecutor {
 	
 	
 	public boolean setPlayerClass(CommandSender s, Command cmd, String l, String[] args){
-		
-		
+
 		//had to use the depreciated thing to get player name from string..
 		//Hopefully this doesn't come back to bite.
 		@SuppressWarnings("deprecation")
@@ -149,12 +148,12 @@ public class PlayerCommand  implements CommandExecutor {
 					s.sendMessage("Set " + p.getPlayerListName() + "'s class to " + args[1]); //tell command issuer it worked
 					p.sendMessage("Your class was changed to " + args[1]); //tell the person their class has been changed
 					
-					c.close(); //close connection
+					DatabaseConnection.closeConnection(c); //close connection
 					return true;
 				}
 			}
 			
-			c.close(); //close connection
+			DatabaseConnection.closeConnection(c); //close connection
 			throw new Exception("Not a valid class name");
 			
 		} catch (Exception e){

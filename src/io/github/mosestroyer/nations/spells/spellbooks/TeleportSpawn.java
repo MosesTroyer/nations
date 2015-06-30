@@ -1,14 +1,10 @@
 package io.github.mosestroyer.nations.spells.spellbooks;
 
-
-
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import io.github.mosestroyer.nations.Nations;
 import io.github.mosestroyer.nations.spells.Spellbook;
-
-
 
 public class TeleportSpawn extends Spellbook{
 	
@@ -27,8 +23,7 @@ public class TeleportSpawn extends Spellbook{
 	@Override
 	public boolean doSpell(Player p, Nations n){
 		
-		//change for when we have a real spawn, this is just where I spawned.
-		Location loc = new Location(p.getWorld(),-3040,34,1692);
+		Location loc = p.getWorld().getSpawnLocation();
 		p.teleport(loc);
 		
 		return true;

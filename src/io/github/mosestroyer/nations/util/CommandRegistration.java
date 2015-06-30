@@ -18,11 +18,11 @@ public class CommandRegistration {
 		
 		//playerActions commands
 		nations.getCommand("joinNation").setExecutor(new PlayerCommand(nations));
-		nations.getCommand("leaveNation").setExecutor(new PlayerCommand(nations));
-		nations.getCommand("setClass").setExecutor(new PlayerCommand(nations));
+		//nations.getCommand("leaveNation").setExecutor(new PlayerCommand(nations));
+		//nations.getCommand("setClass").setExecutor(new PlayerCommand(nations));
 		
 		//Spells Commands
-		nations.getCommand("givespellbook").setExecutor(new SpellsCommand(nations));
+		//nations.getCommand("givespellbook").setExecutor(new SpellsCommand(nations));
 		
 	} //end registerCommands
 

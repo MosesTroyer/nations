@@ -10,8 +10,6 @@ import org.bukkit.util.Vector;
 import io.github.mosestroyer.nations.Nations;
 import io.github.mosestroyer.nations.spells.Spellbook;
 
-
-
 public class WaterToLava extends Spellbook{
 	
 	String name = "Water to Lava";

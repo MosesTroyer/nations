@@ -2,8 +2,6 @@ package io.github.mosestroyer.nations.nation;
 
 import org.bukkit.DyeColor;
 
-
-//Object for Nation information storage
 public class Nation {
 	
 	private String name;

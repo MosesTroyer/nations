@@ -30,7 +30,7 @@ public class PlayerListener implements Listener {
 		
 		PlayerCommand.setPlayerColor(event.getPlayer());
 		
-	} //end formatchat
+	} //end setPlayerNameColor
 	
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
@@ -67,7 +67,7 @@ public class PlayerListener implements Listener {
 						String nationName = PlayerDAO.getPlayerNation(c, player.getUniqueId());
 						if(nationName == ""){
 							event.setCancelled(true);
-							c.close();
+							DatabaseConnection.closeConnection(c);
 							return;
 						}
 						if(!pedestal.getName().equals(nationName) && pedestal.getFlag().equals(NationDAO.getColorByName(c, nationName))){
@@ -95,7 +95,7 @@ public class PlayerListener implements Listener {
 							
 							player.sendMessage("You recovered your nation's flag!");
 							
-							c.close();
+							DatabaseConnection.closeConnection(c);
 							return;
 						} 
 						//if the flag is an enemy color and on an enemy pedestal
@@ -127,7 +127,7 @@ public class PlayerListener implements Listener {
 									
 									player.sendMessage("You captured the flag from " + pedestal.getName() + "!");
 									
-									c.close();
+									DatabaseConnection.closeConnection(c);
 									return;
 								}
 							}
@@ -135,22 +135,17 @@ public class PlayerListener implements Listener {
 							player.sendMessage("You cannot steal any more flags!");
 						}
 						
-						
 					}
 					
-					c.close();
+					DatabaseConnection.closeConnection(c);
 				} catch (Exception e) {
 					player.sendMessage("Failed to capture wool");
 					player.sendMessage(e.getMessage());
 					try {
-						c.close();
+						DatabaseConnection.closeConnection(c);
 					} catch (Exception ex) {}
-				}
-				
-			}
-			
-		
-			
+				}	
+			}		
 		}
 		
 	} //end onPlayerInteract

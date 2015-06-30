@@ -1,12 +1,8 @@
 package io.github.mosestroyer.nations.spells;
 
-
-
 import org.bukkit.entity.Player;
 
 import io.github.mosestroyer.nations.Nations;
-
-
 
 public class BlankSpell extends Spellbook{
 	

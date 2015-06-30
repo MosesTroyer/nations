@@ -53,11 +53,8 @@ public class SetupCommand implements CommandExecutor {
 			
 			if(command.getName().equalsIgnoreCase("createNationsBoard")){
 				if(HelperFunctions.commandCheck(sender, command, label, args, nations, -1, true, false))
-					return createNationsBoard(sender, command, label, args);
-				
+					return createNationsBoard(sender, command, label, args);			
 			} else if(command.getName().equalsIgnoreCase("createPedestal")){
-				//TODO(moses)
-				//Check for nations board before letting this command run
 				if(HelperFunctions.commandCheck(sender, command, label, args, nations, 1, true, false))
 						return createPedestal(sender, command, label, args, nations);
 			} else if (command.getName().equalsIgnoreCase("removePedestal")) {
@@ -74,7 +71,6 @@ public class SetupCommand implements CommandExecutor {
 					return removeNation(sender, command, label, args, nations);
 				}
 			}
-			
 			
 		} catch (Exception e){
 			nations.getLogger().info(e.getMessage());
@@ -141,12 +137,7 @@ public class SetupCommand implements CommandExecutor {
 
 			Pedestal pedestal;
 			int position = 0;
-			
 
-//			int xMax;
-//			int yMax;
-//			int zMax;
-			
 			//bottom base
 			for(x = xMin; x < xMin + 7; x++){
 				for(z = zMin; z < zMin + 7; z++){

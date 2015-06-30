@@ -1,6 +1,5 @@
 package io.github.mosestroyer.nations.spells.spellbooks;
 
-
 import java.util.Random;
 
 import org.bukkit.Material;
@@ -12,8 +11,6 @@ import org.bukkit.inventory.meta.BookMeta;
 import io.github.mosestroyer.nations.Nations;
 import io.github.mosestroyer.nations.spells.AvailableSpells;
 import io.github.mosestroyer.nations.spells.Spellbook;
-
-
 
 public class GiveSpellbook extends Spellbook{
 	

@@ -6,8 +6,6 @@ import org.bukkit.entity.Player;
 import io.github.mosestroyer.nations.Nations;
 import io.github.mosestroyer.nations.spells.Spellbook;
 
-
-
 public class FireBall extends Spellbook{
 	
 	String name = "Fire Ball";

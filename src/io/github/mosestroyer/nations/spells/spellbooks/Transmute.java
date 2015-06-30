@@ -10,8 +10,6 @@ import org.bukkit.inventory.ItemStack;
 import io.github.mosestroyer.nations.Nations;
 import io.github.mosestroyer.nations.spells.Spellbook;
 
-
-
 public class Transmute extends Spellbook{
 	
 	String name = "Transmutation";

@@ -5,8 +5,6 @@ import org.bukkit.entity.Player;
 import io.github.mosestroyer.nations.Nations;
 import io.github.mosestroyer.nations.spells.Spellbook;
 
-
-
 public class Suicide extends Spellbook{
 	
 	String name = "Suicide";

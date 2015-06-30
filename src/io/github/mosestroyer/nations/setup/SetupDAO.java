@@ -10,21 +10,21 @@ import java.sql.Statement;
 
 public class SetupDAO {
 	
-	private static String INSERT_NATION = "INSERT INTO nationsColor (name, color) VALUES ";
+	private static final String INSERT_NATION = "INSERT INTO nationsColor (name, color) VALUES ";
 	
-	private static String INSERT_PEDESTAL = "INSERT INTO pedestals (name, position, x, y, z, flag) VALUES ";
+	private static final String INSERT_PEDESTAL = "INSERT INTO pedestals (name, position, x, y, z, flag) VALUES ";
 	
-	private static String INSERT_CHEST = "INSERT INTO chests (name, position, x, y, z) VALUES ";
+	private static final String INSERT_CHEST = "INSERT INTO chests (name, position, x, y, z) VALUES ";
 	
-	private static String DELETE_NATION_FROM_NATIONSCOLOR = "DELETE FROM nationsColor ";
+	private static final String DELETE_NATION_FROM_NATIONSCOLOR = "DELETE FROM nationsColor ";
 	
-	private static String DELETE_NATION_FROM_PEDESTALS = "DELETE FROM pedestals ";
+	private static final String DELETE_NATION_FROM_PEDESTALS = "DELETE FROM pedestals ";
 	
-	private static String DELETE_NATION_FROM_CHESTS = "DELETE FROM chests ";
+	private static final String DELETE_NATION_IN_CHESTS = "DELETE FROM chests  ";
 	
-	private static String WHERE_NAME = "WHERE name = ";
+	private static final String WHERE_NAME = "WHERE name = ";
 	
-	private static String WHERE_FLAG = "WHERE flag = ";
+	private static final String WHERE_FLAG = "WHERE flag = ";
 	
 	public static void checkForTables(Connection c) throws SQLException{
 		
@@ -66,15 +66,15 @@ public class SetupDAO {
 
 		removePedestals(c, name);
 		
-		//REMOVE FROM ALL TABLES HERE
 		stmt.close();
 	} //end removeNation
 	
 	public static void removePedestals(Connection c, String name) throws SQLException {
 		Statement stmt = c.createStatement();
 		
+		stmt.executeUpdate(DELETE_NATION_IN_CHESTS + WHERE_NAME + "'" + name + "'");
 		stmt.executeUpdate(DELETE_NATION_FROM_PEDESTALS + WHERE_NAME + "'" + name + "'");
-		stmt.executeUpdate(DELETE_NATION_FROM_CHESTS + WHERE_NAME + "'" + name + "'");
+		stmt.executeUpdate(DELETE_NATION_FROM_PEDESTALS + WHERE_FLAG + "'" + NationDAO.getColorByName(c, name) + "'");
 		
 		stmt.close();
 	} //end removePedestals

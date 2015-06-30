@@ -13,17 +13,14 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.mosestroyer.nations.nation.ChestPedestal;
 import io.github.mosestroyer.nations.nation.NationDAO;
-import io.github.mosestroyer.nations.nation.Pedestal;
 import io.github.mosestroyer.nations.setup.SetupDAO;
 import io.github.mosestroyer.nations.spells.AvailableSpells;
 import io.github.mosestroyer.nations.spells.Spellbook;

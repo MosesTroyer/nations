@@ -17,12 +17,7 @@ public class AvailableClasses {
 		classes[10] = new Pyromaniac();
 		classes[11] = new Swimmer();
 		classes[12] = new Warrior();
-		
-		
-		
+
 		return classes;
 	}
-	
-	
-	
 }

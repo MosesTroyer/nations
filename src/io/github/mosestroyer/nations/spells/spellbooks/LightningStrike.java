@@ -1,7 +1,5 @@
 package io.github.mosestroyer.nations.spells.spellbooks;
 
-
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -11,8 +9,6 @@ import org.bukkit.util.Vector;
 import io.github.mosestroyer.nations.Nations;
 import io.github.mosestroyer.nations.spells.Spellbook;
 
-
-
 public class LightningStrike extends Spellbook{
 	
 	String name = "Lightning Strike";
@@ -20,7 +16,7 @@ public class LightningStrike extends Spellbook{
 	String msgText = "Struck the lightning!";
 	int tier = 1;
 	
-	public LightningStrike(){ //Change from BlankSpell to name of the spell!
+	public LightningStrike(){ 
 		super.setName(name);
 		super.setDescription(description);
 		super.setMsg(msgText);
