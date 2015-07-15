@@ -14,9 +14,9 @@ import io.github.mosestroyer.nations.spells.Spellbook;
 
 public class GrowCrops extends Spellbook {
 
-	String name = "Grow Crops";
-	String description = "Grow: A spell that grows all crops within an area! Just left click to cast";
-	String msgText = "Grew the crops!";
+	String name = "Grow Wheat";
+	String description = "Grow What: A spell that grows all wheat within an area! Just left click to cast";
+	String msgText = "Grew the wheat!";
 	int tier = 1;
 	int r = 20;
 	

@@ -20,9 +20,6 @@ public class BlankSpell extends Spellbook{
 
 	@Override
 	public boolean doSpell(Player p, Nations n){
-		n.getLogger().info(p.getPlayerListName()+" "+msgText.toLowerCase());
-		p.sendMessage(msgText);
-		
 		return false;
 	}
 }
