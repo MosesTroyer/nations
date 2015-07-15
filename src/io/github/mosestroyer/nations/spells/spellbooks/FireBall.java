@@ -11,7 +11,7 @@ public class FireBall extends Spellbook{
 	String name = "Fire Ball";
 	String description = "Fire Ball: A spell that lets you shoot fire from your hands! Just Left Click to cast";
 	String msgText = "Shot the fire!";
-	int tier = 1;
+	int tier = 2;
 
 	public FireBall(){
 		super.setName(name);

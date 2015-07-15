@@ -14,7 +14,7 @@ public class LightningStrike extends Spellbook{
 	String name = "Lightning Strike";
 	String description = "1.21 Gigawats to the face! Just left click to cast";
 	String msgText = "Struck the lightning!";
-	int tier = 1;
+	int tier = 2;
 	
 	public LightningStrike(){ 
 		super.setName(name);

@@ -10,7 +10,7 @@ public class GetExp extends Spellbook{
 	String name = "Get Exp";
 	String description = "Get Exp: Gives the player 300 Exp. Just left click to cast";
 	String msgText = "Gave the Exp!";
-	int tier = 1;
+	int tier = 2;
 	
 	public GetExp(){ //Change from BlankSpell to name of the spell!
 		super.setName(name);

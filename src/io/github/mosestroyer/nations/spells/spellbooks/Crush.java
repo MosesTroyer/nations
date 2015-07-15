@@ -12,7 +12,7 @@ public class Crush extends Spellbook{
 	String name = "Crush";
 	String description = "Crushes (all) blocks in your inventory. (Cobble -> Gravel -> Dirt -> Sand) Just left click to cast";
 	String msgText = "Crushed the blocks!";
-	int tier = 1;
+	int tier = 2;
 	
 	public Crush(){ //Change from BlankSpell to name of the spell!
 		super.setName(name);
