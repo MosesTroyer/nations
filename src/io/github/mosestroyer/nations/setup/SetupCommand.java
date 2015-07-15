@@ -48,6 +48,10 @@ public class SetupCommand implements CommandExecutor {
 		
 		try {
 		
+			if(command.getName().equalsIgnoreCase("showNations")){
+				return showNations(sender, command, label, args, nations);
+			} 
+			
 			if(sender instanceof Player && !((Player)sender).isOp())
 				return true;
 			
@@ -64,8 +68,6 @@ public class SetupCommand implements CommandExecutor {
 				if(HelperFunctions.commandCheck(sender, command, label, args, nations, 2, false, false)){
 					return createNation(sender, command, label, args, nations);
 				}
-			} else if(command.getName().equalsIgnoreCase("showNations")){
-				return showNations(sender, command, label, args, nations);
 			} else if(command.getName().equalsIgnoreCase("removeNation")){
 				if(HelperFunctions.commandCheck(sender, command, label, args, nations, 1, false, false)){
 					return removeNation(sender, command, label, args, nations);
@@ -302,6 +304,8 @@ public class SetupCommand implements CommandExecutor {
 			RegionContainer container = worldGuard.getRegionContainer();
 			RegionManager regions = container.get(world);
 			regions.removeRegion(nationName);
+			
+			String flag = pedestal.getFlag();
 
 			int xMin = loc.getBlockX() - 5;
 			int yMin = loc.getBlockY() - 3;
@@ -382,7 +386,7 @@ public class SetupCommand implements CommandExecutor {
 				}
 			}
 			
-			SetupDAO.removePedestals(c, nationName);
+			SetupDAO.removePedestals(c, nationName, flag);
 			
 			return false;
 		} catch (Exception e){

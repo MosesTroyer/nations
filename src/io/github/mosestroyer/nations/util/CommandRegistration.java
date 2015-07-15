@@ -3,7 +3,6 @@ package io.github.mosestroyer.nations.util;
 import io.github.mosestroyer.nations.Nations;
 import io.github.mosestroyer.nations.playerActions.PlayerCommand;
 import io.github.mosestroyer.nations.setup.SetupCommand;
-import io.github.mosestroyer.nations.spells.SpellsCommand;
 
 public class CommandRegistration {
 	
@@ -18,7 +17,7 @@ public class CommandRegistration {
 		
 		//playerActions commands
 		nations.getCommand("joinNation").setExecutor(new PlayerCommand(nations));
-		//nations.getCommand("leaveNation").setExecutor(new PlayerCommand(nations));
+		nations.getCommand("leaveNation").setExecutor(new PlayerCommand(nations));
 		//nations.getCommand("setClass").setExecutor(new PlayerCommand(nations));
 		
 		//Spells Commands

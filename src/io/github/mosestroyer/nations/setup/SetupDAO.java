@@ -24,6 +24,8 @@ public class SetupDAO {
 	
 	private static final String WHERE_NAME = "WHERE name = ";
 	
+	private static final String WHERE_COLOR = "WHERE color = ";
+	
 	private static final String WHERE_FLAG = "WHERE flag = ";
 	
 	public static void checkForTables(Connection c) throws SQLException{
@@ -62,19 +64,17 @@ public class SetupDAO {
 		
 		stmt.executeUpdate(DELETE_NATION_FROM_NATIONSCOLOR + WHERE_NAME + "'" + name + "'");
 		
-		stmt.executeUpdate(DELETE_NATION_FROM_NATIONSCOLOR + WHERE_FLAG + "'" + flag + "'");
-
-		removePedestals(c, name);
+		stmt.executeUpdate(DELETE_NATION_FROM_NATIONSCOLOR + WHERE_COLOR + "'" + flag + "'");
 		
 		stmt.close();
 	} //end removeNation
 	
-	public static void removePedestals(Connection c, String name) throws SQLException {
+	public static void removePedestals(Connection c, String name, String color) throws SQLException {
 		Statement stmt = c.createStatement();
 		
 		stmt.executeUpdate(DELETE_NATION_IN_CHESTS + WHERE_NAME + "'" + name + "'");
 		stmt.executeUpdate(DELETE_NATION_FROM_PEDESTALS + WHERE_NAME + "'" + name + "'");
-		stmt.executeUpdate(DELETE_NATION_FROM_PEDESTALS + WHERE_FLAG + "'" + NationDAO.getColorByName(c, name) + "'");
+		stmt.executeUpdate(DELETE_NATION_FROM_PEDESTALS + WHERE_FLAG + "'" + color + "'");
 		
 		stmt.close();
 	} //end removePedestals

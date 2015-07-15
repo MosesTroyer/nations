@@ -1,29 +1,36 @@
 name: Nations
 main: io.github.mosestroyer.nations.Nations
-version: 0.1
+version: 1.0
 depend: [WorldGuard]
 
 commands:
     createNationsBoard:
+        permission: nations.admin
         description: Creates a board to display nations and other information
     createPedestal:
+        permission: nations.admin
         description: Creates a pedestal for a designated nation
     removePedestal:
+        permission: nations.admin
         description: Removes a pedestal for a designated nation
     createNation:
+        permission: nations.admin
         description: Allows an admin to setup a new nation
     showNations:
         description: Shows the list of all created nations
     removeNation:
+        permission: nations.admin
         description: Removes a nation from the nationlist
     joinNation:
         description: Joins a specified nation
     leaveNation:
         description: Leave your nation
     setClass:
-       description: Sets the player's class
+        permission: nations.admin
+        description: Sets the player's class
     givespellbook:
-         description: gives you a spellbook
+        permission: nations.admin
+        description: gives you a spellbook
          
 permissions:
     nations.*:
@@ -33,6 +40,7 @@ permissions:
             nations.monarch: true
             nations.citizen: true
             nations.commonder: true
+        default: op
     nations.admin:
         description: The abilities for the server admins
         default: false

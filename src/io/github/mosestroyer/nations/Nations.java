@@ -4,8 +4,6 @@ package io.github.mosestroyer.nations;
 import java.sql.Connection;
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -42,41 +40,30 @@ public class Nations extends JavaPlugin implements Listener{
 			SetupDAO.checkForTables(c);
 			DatabaseConnection.closeConnection(c);
 			
-			Timer timer = new Timer ();
+			Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() { 
+	            public void run() {      
+	            	addToChest(0, Material.COBBLESTONE, 1);
+	            }
+	        }, 0, 60*20L);
 			
-			TimerTask level1Chest = new TimerTask () {
-			    @Override
-			    public void run () {
-			    	addToChest(0, Material.COBBLESTONE, 10);
-			    }
-			};
+			Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() { 
+	            public void run() {      
+	            	addToChest(1, Material.IRON_INGOT, 1);
+	            }
+	        }, 0, 4*60*60*20L);
 			
-			TimerTask level2Chest = new TimerTask () {
-				@Override
-			    public void run () {
-			    	addToChest(1, Material.IRON_INGOT, 1);
-			    }
-			};
+			Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() { 
+	            public void run() {      
+	            	addToChest(2, Material.DIAMOND, 1);
+	            }
+	        }, 0, 8*60*60*20L);
 			
-			TimerTask level3Chest = new TimerTask () {
-				@Override
-			    public void run () {
-			    	addToChest(2, Material.DIAMOND, 1);
-			    }
-			};
+			Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() { 
+	            public void run() {      
+	            	addToChest(3, Material.BOOK, 1);
+	            }
+	        }, 0, 12*60*60*20L);
 			
-			TimerTask level4Chest = new TimerTask () {
-				@Override
-			    public void run () {
-			    	addToChest(3, Material.BOOK, 1);
-			    }
-			};
-
-			timer.schedule (level1Chest, 0l, 1000*60);
-			timer.schedule (level2Chest, 0l, 1000*60*10);
-			timer.schedule (level3Chest, 0l, 1000*60*30);
-			timer.schedule (level4Chest, 0l, 1000*60*60);
-
 			getLogger().info("Nations successfully enabled!");
 		} catch (Exception e) {
 			getLogger().info("Nations failed to start!");
@@ -122,20 +109,23 @@ public class Nations extends JavaPlugin implements Listener{
 	    			Inventory inventory = chest.getBlockInventory();
 	    			
 	    			if(mat == Material.BOOK){
-	    				Spellbook sb[] = AvailableSpells.getApprovedSpells();
-	    				
-	    				ItemStack book = new ItemStack(Material.WRITTEN_BOOK, 1);
-	    				BookMeta bd = (BookMeta) book.getItemMeta();
-	    				
-	    				Random rand = new Random();
-	    				int ranNum = rand.nextInt(sb.length);
-	    				
-	    				bd.addPage(sb[ranNum].getDescription());
-	    				bd.setAuthor("The Wizard");
-	    				bd.setTitle(sb[ranNum].getName());
-	    		
-	    				book.setItemMeta(bd);
-	    				inventory.addItem(book);
+	    				for (int i = 0; i < flagCount; i++) {
+		    				Spellbook sb[] = AvailableSpells.getApprovedSpells();
+		    				
+		    				ItemStack book = new ItemStack(Material.WRITTEN_BOOK, 1);
+		    				BookMeta bd = (BookMeta) book.getItemMeta();
+		    				
+		    				Random rand = new Random();
+		    				int ranNum = rand.nextInt(sb.length);
+		    				
+		    				bd.addPage(sb[ranNum].getDescription());
+		    				bd.setAuthor("The Wizard");
+		    				bd.setTitle(sb[ranNum].getName());
+		    		
+		    				book.setItemMeta(bd);
+		    				
+		    				inventory.addItem(book);
+	    				}
 	    			} else 
 	    				inventory.addItem(new ItemStack(mat, amount * flagCount));
 	    			
