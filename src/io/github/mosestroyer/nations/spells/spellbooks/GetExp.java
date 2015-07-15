@@ -1,28 +1,29 @@
 package io.github.mosestroyer.nations.spells.spellbooks;
 
-import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 
 import io.github.mosestroyer.nations.Nations;
 import io.github.mosestroyer.nations.spells.Spellbook;
 
-public class FireBall extends Spellbook{
+public class GetExp extends Spellbook{
 	
-	String name = "Fire Ball";
-	String description = "Fire Ball: A spell that lets you shoot fire from your hands! Just Left Click to cast";
-	String msgText = "Shot the fire!";
+	String name = "Get Exp";
+	String description = "Get Exp: Gives the player 300 Exp. Just left click to cast";
+	String msgText = "Gave the Exp!";
 	int tier = 2;
-
-	public FireBall(){
+	
+	public GetExp(){ //Change from BlankSpell to name of the spell!
 		super.setName(name);
 		super.setDescription(description);
 		super.setMsg(msgText);
 		super.setTier(tier);
 	}
-	
+
 	@Override
 	public boolean doSpell(Player p, Nations n){
-		p.launchProjectile(Fireball.class);
-		return true;
+		
+		p.giveExp(300);
+		
+		return false;
 	}
 }

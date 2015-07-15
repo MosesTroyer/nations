@@ -11,7 +11,7 @@ public class ArrowStorm extends Spellbook{
 	String name = "Arrow Storm";
 	String description = "Arrow Storm: Unleashes a storm of arrows upon your foes! Just left click to cast";
 	String msgText = "Stormed the arrows!";
-	int tier = 1;
+	int tier = 2;
 	
 	int s = 10;
 	

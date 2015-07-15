@@ -15,7 +15,7 @@ public class Transmute extends Spellbook{
 	String name = "Transmutation";
 	String description = "Transmuation: A spell that transmutes the iron in your inventory to gold! Just left click to cast";
 	String msgText = "Did the alchemy!";
-	int tier = 1;
+	int tier = 3;
 	
 	public Transmute(){ 
 		super.setName(name);
